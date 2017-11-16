@@ -33,33 +33,58 @@ int createNewDB(const char DBFilePath)
 	std::cout << "Creating New DB File...";
 	std::cout << "The following tables will be created: \n 1. People \n 2. Appointments";
 	sqlite3 *db;
-	sqlite3_open(DBFilePath,db);
-	peopleSQL = "CREATE TABLE PEOPLE("  \
+	int returnCode;
+	char *errorMessage;
+	returnCode = sqlite3_open(DBFilePath,db);
+	char *peopleSQL = "CREATE TABLE PEOPLE("  \
 	         "ID INT PRIMARY KEY UNIQUE NOT NULL," \
 	         "NAME				TEXT		NOT NULL," \
 	         "DAYS_AVAILABLE	CHAR(13)	NOT NULL," \
-	         "START_TIME        TIME		NOT NULL," \
-	         "STOP_TIME         TIME		NOT NULL);";
-	peopleCreate = sqlite3_exec(db,peopleSQL);
-	appointmentSQL = "CREATE TABLE APPOINTMENTS("  \
+	         "START_TIME        TEXT		NOT NULL," \
+	         "STOP_TIME         TEXT		NOT NULL);";
+	returnCode = sqlite3_exec(db,peopleSQL,0,0,&errorMessage);
+	char *appointmentSQL = "CREATE TABLE APPOINTMENTS("  \
 	         "ID INT PRIMARY KEY UNIQUE NOT NULL," \
 	         "GUEST_NAME		TEXT		NOT NULL," \
-	         "APPOINTMENT_DATE	DATE	NOT NULL," \
-	         "APPOINTMENT_TIME	TIME		NOT NULL," \
+	         "APPOINTMENT_DATE	TEXT	NOT NULL," \
+	         "APPOINTMENT_TIME	TEXT		NOT NULL," \
 	         "PERSON_ID         INTEGER		NOT NULL." \
 			 "FOREIGN KEY(PERSON_ID) REFERENCES PEOPLE(ID));";
-	appointmentsCreate = sqlite3_exec(db,appointmentSQL);
-	sqlite3_close(db);
-	return 0;
+	if(returnCode != SQLITE_OK)
+	{
+		std::cout<<"An Error Occurred While Setting up the People Table. Please use the following information for troubleshooting:\n";
+		std::cout<< errorMessage;
+		return returnCode;
+	}
+	returnCode= sqlite3_exec(db,appointmentSQL,0,0,&errorMessage);
+	if(returnCode != SQLITE_OK)
+		{
+			std::cout<<"An Error Occurred While Setting up the Appointment Table. Please use the following information for troubleshooting:\n";
+			std::cout<< errorMessage;
+			return returnCode;
+		}
+	returnCode = sqlite3_close(db);
+	if(returnCode != SQLITE_OK)
+		{
+			std::cout<<"An Error Occurred While Closing the DB. Please use the following information for troubleshooting:\n";
+			std::cout<< errorMessage;
+			return returnCode;
+		}
+	return returnCode;
 }
 
-void connectToDB(sqlite *db,const char *dbFilePath)
+void connectToDB(sqlite3 *db,const char *dbFilePath)
 {
 	sqlite3_open(dbFilePath,db);
 }
 
-void disconnectDB(sqlite *db)
+void disconnectDB(sqlite3 *db)
 {
 	sqlite3_close(db);
+}
+
+int addNewPerson(int id, char *name, char *days_available, int startHour, int startMinute, int stopHour, int stopMinute)
+{
+
 }
 #endif /* INFO_MANAGEMENT_INFORMATION_MANAGEMENT_H_ */

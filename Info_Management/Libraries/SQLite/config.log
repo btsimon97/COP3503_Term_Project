@@ -1105,7 +1105,7 @@ configure:10287: $? = 0
 configure:10287: result: yes
 configure:10287: checking for localtime_s
 configure:10287: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/cc1TYlHq.o: In function `main':
+/tmp/cclvZ1h6.o: In function `main':
 /home/bsimon/Downloads/sqlite/bld/conftest.c:74: undefined reference to `localtime_s'
 collect2: error: ld returned 1 exit status
 configure:10287: $? = 1
@@ -1232,7 +1232,7 @@ configure:10461: checking whether to support threadsafe operation
 configure:10469: result: yes
 configure:10475: checking for library containing pthread_create
 configure:10506: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/cc0xFvEy.o: In function `main':
+/tmp/ccWQoD3R.o: In function `main':
 /home/bsimon/Downloads/sqlite/bld/conftest.c:59: undefined reference to `pthread_create'
 collect2: error: ld returned 1 exit status
 configure:10506: $? = 1
@@ -1318,7 +1318,7 @@ configure:10840: WARNING: *** Without Tcl the regression tests cannot be execute
 configure:10842: WARNING: *** Consider using --with-tcl=... to define location of Tcl ***
 configure:10936: checking for library containing readline
 configure:10967: gcc -o conftest -g -O2 -DSQLITE_OS_UNIX=1   conftest.c  >&5
-/tmp/ccsa5jzR.o: In function `main':
+/tmp/cccqEtkb.o: In function `main':
 /home/bsimon/Downloads/sqlite/bld/conftest.c:59: undefined reference to `readline'
 collect2: error: ld returned 1 exit status
 configure:10967: $? = 1
@@ -1455,7 +1455,7 @@ configure: failed program was:
 configure:10984: result: no
 configure:11011: checking for library containing tgetent
 configure:11042: gcc -o conftest -g -O2 -DSQLITE_OS_UNIX=1   conftest.c  >&5
-/tmp/ccU65675.o: In function `main':
+/tmp/ccwywlKk.o: In function `main':
 /home/bsimon/Downloads/sqlite/bld/conftest.c:59: undefined reference to `tgetent'
 collect2: error: ld returned 1 exit status
 configure:11042: $? = 1
@@ -2035,7 +2035,7 @@ configure:11221: $? = 0
 configure:11238: result: none required
 configure:11288: checking for library containing dlopen
 configure:11319: gcc -o conftest -g -O2 -DSQLITE_OS_UNIX=1   conftest.c -lpthread  >&5
-/tmp/cceIKxuW.o: In function `main':
+/tmp/ccztpDlU.o: In function `main':
 /home/bsimon/Downloads/sqlite/bld/conftest.c:59: undefined reference to `dlopen'
 collect2: error: ld returned 1 exit status
 configure:11319: $? = 1
