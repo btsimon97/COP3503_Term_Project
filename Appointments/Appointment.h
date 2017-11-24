@@ -2,6 +2,7 @@
 class Appointment{
 public:
 	Appointment* getNextAppointment();
+	void setNextAppointment(Appointment* nextAppointment);
 	Visitor* getVisitor();
 	Worker* getWorker();
 	int getMonth();
