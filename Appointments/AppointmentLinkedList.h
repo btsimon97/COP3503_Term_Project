@@ -1,6 +1,6 @@
 class AppointmentLinkedList{
 public:
-	void printAppointment();
+	void printAppointments();
 	Appointment* getHeadAppointment();
 	Appointment* getTailAppointment();
 	void addAppointment(string name, int id);
