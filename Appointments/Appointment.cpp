@@ -2,6 +2,11 @@ Appointment* Appointment::getNextAppointment(){
 	return nextAppointment;
 }
 
+void Appointment::setNextAppointment(Appointment* nextAppointment){
+	this->nextAppointment = nextAppointment;
+	return;
+}
+
 Visitor* Appointment::getVisitor(){
 	return visitor;
 }
