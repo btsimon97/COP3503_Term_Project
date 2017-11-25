@@ -9,6 +9,8 @@ public:
 	int getDay();
 	int getTimeSlot();
 	void printAppointment();
+	//Used to check if an appointment slot is already full.
+	bool operator == (const Appointment compared);
 	Appointment(int month, int day, int time, Worker* worker, string visitorName, int visitorID);
 	~Appointment();
 private:
