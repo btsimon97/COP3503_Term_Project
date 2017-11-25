@@ -17,6 +17,18 @@ Appointment* AppointmentLinkedList::getTailAppointment(){
 	return tail;
 }
 
+void addAppointment(string name, int id, int day, int month, int time, Worker* worker){
+	Appointment* newAppointment = new Appointment(month, day, time, worker, name, id);
+	this->tail->setNextAppointment(newAppointment);
+	this->tail = newAppointment;
+	if(this->head == NULL){
+		this->head = this->tail;
+	}
+	//Can be used for debugging and confirmation of addition to user.
+	cout << "Successfully added appointment." << endl;
+	return;
+}
+
 //Added a constructor to ensure head and tail are NULL when the list is first created.
 AppointmentLinkedList::AppointmentLinkedList(){
 	head = NULL;
