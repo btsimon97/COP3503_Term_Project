@@ -59,6 +59,36 @@ void cancelAppointment(string name, int id){
 	return;
 }
 
+void cancelAppointment(int day, int month, int time){
+	Appointment* current = head;
+	if(current->getMonth() == month && current->getDay() == day && current->getTimeSlot() == time){
+		if(current == this->tail){
+			tail = current->getNextAppointment();
+		}
+		this->head = current->getNextAppointment();
+		delete  current;
+		cout << "Successfully cancelled appointment." << endl;
+		return;
+	}
+	else{
+		//Need to check from the next appointment to relink the list.
+		while(current->getNextAppointment() != NULL){
+			if(current->getNextAppointment()->getMonth() == month && current->getNextAppointment()->getDay() == day && current->getNextAppointment()->getTimeSlot() == time){
+				Appointment* next = current->getNextAppointment()->getNextAppointment();
+				delete current->getNextAppointment();
+				current->setNextAppointment(next);
+				if(next == NULL){
+					this->tail = current;
+				}
+				cout << "Successfully cancelled appointment." << endl;
+				return;
+			}
+			current = current->getNextAppointment();
+		}
+	}
+	cout << "Appointment not found." << endl;
+	return;
+}
 //Added a constructor to ensure head and tail are NULL when the list is first created.
 AppointmentLinkedList::AppointmentLinkedList(){
 	head = NULL;
