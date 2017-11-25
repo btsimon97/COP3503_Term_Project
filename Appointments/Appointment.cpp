@@ -42,6 +42,13 @@ void Appointment::printAppointment(){
 	return;
 }
 
+bool Appointment:: operator ==(const Appointment compared){
+	if(compared.getDay() == day && compared.getMonth() == month && compared.getTimeSlot() == timeSlot && compared.getWorker() == worker){
+		return true;
+	}
+	return false;
+}
+
 Appointment::Appointment(int month, int day, int timeSlot, Worker* worker, string visitorName, int visitorID){
 	month = month;
 	day = day;

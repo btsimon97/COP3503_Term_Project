@@ -17,14 +17,19 @@ Appointment* AppointmentLinkedList::getTailAppointment(){
 	return tail;
 }
 
-void addAppointment(string name, int id, int day, int month, int time, Worker* worker){
-	this->tail->setNextAppointment(new Appointment(month, day, time, worker, name, id));
-	this->tail = tail->getNextAppointment();
-	if(this->head == NULL){
-		this->head = this->tail;
-	}
+void addAppointment(string name, int id, int day, int month, int timeSlot, Worker* worker){
+	if(this->slotFree(new Appointment (month, day, timeSlot, worker, name, id))){
+		this->tail->setNextAppointment(new Appointment(month, day, timeSlot, worker, name, id));
+		this->tail = tail->getNextAppointment();
+		if(this->head == NULL){
+			this->head = this->tail;
+		}
 	//Can be used for debugging and confirmation of addition to user.
-	cout << "Successfully added appointment." << endl;
+		cout << "Successfully added appointment." << endl;
+	}
+	else{
+		cout << "Time slot already full. Could not make appointment." << endl;
+	}
 	return;
 }
 
@@ -102,4 +107,15 @@ AppointmentLinkedList::~AppointmentLinkedList(){
 		delete currentAppointment;
 		currentAppointment = nextAppointment;
 	}
+}
+
+bool AppointmentLinkedList:: slotFree(Appointment* attemptedAddition){
+	current = this->head;
+	while(current != NULL){
+		if(*current == *attemptedAddition){
+			return false;
+		}
+		current = current->getNextAppointment();
+	}
+	return true;
 }

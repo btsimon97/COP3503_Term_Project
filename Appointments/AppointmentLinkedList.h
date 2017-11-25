@@ -16,5 +16,5 @@ private:
 	Appointment* head;
 	Appointment* tail;
 	//Extra function to check if appointment slot already full. Used with addAppointment function.
-	bool slotFree(Appointment attemptedAddition);
+	bool slotFree(Appointment* attemptedAddition);
 };

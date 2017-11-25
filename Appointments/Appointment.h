@@ -11,7 +11,7 @@ public:
 	void printAppointment();
 	//Used to check if an appointment slot is already full.
 	bool operator == (const Appointment compared);
-	Appointment(int month, int day, int time, Worker* worker, string visitorName, int visitorID);
+	Appointment(int month, int day, int timeSlot, Worker* worker, string visitorName, int visitorID);
 	~Appointment();
 private:
 	int month;
