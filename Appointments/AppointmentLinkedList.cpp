@@ -1,4 +1,6 @@
-//Some confusion about what this program must do specifically. Currently prints all of a worker's appointments.
+#include "AppointmentLinkedList.h"
+#include <iostream>
+using namespace std;
 void AppointmentLinkedList::printAppointments(){
 	Appointment* currentAppointment = head;
 	while(currentAppointment != NULL){
@@ -17,9 +19,14 @@ Appointment* AppointmentLinkedList::getTailAppointment(){
 	return tail;
 }
 
-void addAppointment(string name, int id, int day, int month, int timeSlot, Worker* worker){
-	if(this->slotFree(new Appointment (month, day, timeSlot, worker, name, id))){
-		this->tail->setNextAppointment(new Appointment(month, day, timeSlot, worker, name, id));
+void AppointmentLinkedList::addAppointment(bool offDay, int day, int month, int year, int timeSlot, Worker* worker, string name, int id){
+	if(this->slotFree(Appointment (offDay, day, month, year, timeSlot, worker, name, id))){
+		try{
+			this->tail->setNextAppointment(new Appointment(offDay, day, month, year, timeSlot, worker, name, id));
+		}
+		catch(string message){
+			cout << message << endl;
+		}
 		this->tail = tail->getNextAppointment();
 		if(this->head == NULL){
 			this->head = this->tail;
@@ -33,7 +40,7 @@ void addAppointment(string name, int id, int day, int month, int timeSlot, Worke
 	return;
 }
 
-void cancelAppointment(string name, int id){
+void AppointmentLinkedList::cancelAppointment(string name, int id){
 	Appointment* current = head;
 	if(current->getVisitor()->getVisitorName() == name && current->getVisitor()->getVisitorID() == id){
 		if(current == this->tail){
@@ -64,9 +71,9 @@ void cancelAppointment(string name, int id){
 	return;
 }
 
-void cancelAppointment(int day, int month, int time){
+void AppointmentLinkedList::cancelAppointment(int day, int month, int year, int time){
 	Appointment* current = head;
-	if(current->getMonth() == month && current->getDay() == day && current->getTimeSlot() == time){
+	if(current->getMonth() == month && current->getDay() == day && current->getYear() == year && current->getTimeSlot() == time){
 		if(current == this->tail){
 			tail = current->getNextAppointment();
 		}
@@ -94,6 +101,35 @@ void cancelAppointment(int day, int month, int time){
 	cout << "Appointment not found." << endl;
 	return;
 }
+
+void AppointmentLinkedList::printVisitorInfo(string visitorName, int visitorID){
+	Appointment* current = head;
+	while(current != NULL){
+		if(current->getVisitor()->getVisitorName() == visitorName && current->getVisitor()->getVisitorID() == visitorID){
+			cout << "Visitor name: " << visitorName << endl; 
+			cout << "Visitor ID: " << visitorID << endl;
+			return;
+		}
+		current = current->getNextAppointment();
+	}
+	cout << "No such visitor found in the system. " << endl;
+	return;
+}
+
+void AppointmentLinkedList::printVisitorInfo(int day, int month, int year, int timeSlot){
+	Appointment* current = head;
+	while(current != NULL){
+		if(current->getDay() == day && current->getMonth() == month && current->getYear() == year && current->getTimeSlot() == timeSlot){
+			cout << "Visitor name: " << current->getVisitor()->getVisitorName()<< endl; 
+			cout << "Visitor ID: " << current->getVisitor()->getVisitorID()<< endl;
+			return;
+		}
+		current = current->getNextAppointment();
+	}
+	cout << "No visitor found to have an appointment on this date. " << endl;
+	return;
+}
+
 //Added a constructor to ensure head and tail are NULL when the list is first created.
 AppointmentLinkedList::AppointmentLinkedList(){
 	head = NULL;
@@ -103,16 +139,16 @@ AppointmentLinkedList::AppointmentLinkedList(){
 AppointmentLinkedList::~AppointmentLinkedList(){
 	Appointment* currentAppointment = head;
 	while(currentAppointment != NULL){
-		Appointment nextAppointment = currentAppointment->getNextAppointment();
+		Appointment* nextAppointment = currentAppointment->getNextAppointment();
 		delete currentAppointment;
 		currentAppointment = nextAppointment;
 	}
 }
 
-bool AppointmentLinkedList:: slotFree(Appointment* attemptedAddition){
-	current = this->head;
+bool AppointmentLinkedList:: slotFree(Appointment attemptedAddition){
+	Appointment* current = this->head;
 	while(current != NULL){
-		if(*current == *attemptedAddition){
+		if(*current == attemptedAddition){
 			return false;
 		}
 		current = current->getNextAppointment();
