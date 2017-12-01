@@ -16,7 +16,7 @@ private:
 	Worker *head;
 	Worker *tail;
 public:
-	void printWorkerWeekSchedule(std::string name, int month, int weekOfMonth);
+	void printWorkerWeekSchedule(std::string name, int month,int year, int weekOfMonth);
 	Worker* getHeadWorker();
 	Worker* getTailWorker();
 	WorkerLinkedList();

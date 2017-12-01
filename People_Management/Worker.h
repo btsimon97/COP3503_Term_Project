@@ -43,11 +43,11 @@ public:
 		this->nextWorkerInList = nextWorkerInList;
 	}
 
-	int getWorkerId() const {
+	int getWorkerID() const {
 		return workerID;
 	}
 
-	void setWorkerId(int workerId) {
+	void setWorkerID(int workerId) {
 		workerID = workerId;
 	}
 
