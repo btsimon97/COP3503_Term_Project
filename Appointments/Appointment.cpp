@@ -2,15 +2,8 @@
 #include <iostream>
 //To get current date and time.
 #include <ctime>
+#include <stdlib.h>
 using namespace std;
-Appointment* Appointment::getNextAppointment(){
-	return nextAppointment;
-}
-
-void Appointment::setNextAppointment(Appointment* nextAppointment){
-	this->nextAppointment = nextAppointment;
-	return;
-}
 
 Visitor* Appointment::getVisitor(){
 	return visitor;
@@ -26,6 +19,10 @@ int Appointment::getDay(){
 
 int Appointment::getMonth(){
 	return month;
+}
+
+int Appointment::getAppointmentID(){
+	return appointmentID;
 }
 
 int Appointment::daysInMonth(){
@@ -109,15 +106,8 @@ void Appointment::printAppointment(){
 	return;
 }
 
-bool Appointment:: operator == (Appointment compared){
-	//Use -1 time slot for an entire day off.
-	if(compared.getDay() == day && compared.getMonth() == month && compared.getYear() == year  && compared.getWorker() == worker && (compared.getTimeSlot() == timeSlot || timeSlot == -1)){
-		return true;
-	}
-	return false;
-}
-
-Appointment::Appointment(bool offDay, int day, int month, int year, int timeSlot, Worker* worker, string visitorName, int visitorID){
+Appointment::Appointment(bool offDay, int day, int month, int year, int appointmentTime, Worker* worker, string visitorName, int visitorID){
+	//To check time inputs.
 	time_t t = time(0);
 	struct tm* localTime = localtime(&t);
 	//tm_year starts counting from 1900 and tm_mon starts months at 0.
@@ -130,16 +120,20 @@ Appointment::Appointment(bool offDay, int day, int month, int year, int timeSlot
 	else if(day < 1 || day > this->daysInMonth()){
 		throw string("Please input a valid day.");
 	}
+	//Seed for random number generator with time.
+	srand(time(NULL));
 	this->offDay = offDay;
 	this->day = day;
 	this->month = month;
 	this->year = year;
-	this->timeSlot = timeSlot;
 	this->worker = worker;
+	this->appointmentTime = appointmentTime;
 	this->visitor = new Visitor(visitorName, visitorID);
-	//The appointments are always added to the end of the linked list. A new appointment should always
-	//have a Null next appointment. 
-	this->nextAppointment = NULL;
+	this->appointmentID = 0;
+	//Need a countAppointments function here.
+	while(countMatchingAppointments(appointmentID) != 0){
+		appointmentID = rand();
+	}
 }
 
 Appointment::~Appointment(){
