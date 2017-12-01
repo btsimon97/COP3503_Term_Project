@@ -8,19 +8,24 @@
 #include "WorkerLinkedList.h"
 
 namespace std {
-	 struct node
-	  {
-	    int data;
-	    node *next;
-	  };
-class WorkerLinkedList() {
+class WorkerLinkedList {
 private:
-	    node *head, *tail;
+	node *head;
+	node *tail;
 public:
-	    WorkerLinkedList(){
-	      head= NULL;
-	      tail= NULL;
-	    }
+	void printWorkerWeekSchedule(std::string name,int id, int month, int weekOfMonth){
+
+	};
+	Worker* getHeadWorker(){
+		return head;
+	}
+	Worker* getTailWorker(){
+		return tail;
+	}
+	WorkerLinkedList(){
+		head= NULL;
+		tail= NULL;
+	}
 };
 
-} /* namespace std */
+}
