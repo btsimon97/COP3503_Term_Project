@@ -12,16 +12,14 @@
 
 class Worker {
 private:
-	Worker* NextWorkerInList;
-	std::string WorkerName;
+	Worker* nextWorkerInList;
+	std::string workerName;
 	int workerID;
-	//	AppointmentLinkedList appointments;
+	int daysOff;
+	int timeSlotOff;
+		AppointmentLinkedList appointments;
 public:
 	Worker* getNextWorker();
-	void addAppointment(std::string name,int id);
-	void cancelAppointment(std::string name, int id);
-	void cancelAppointment(int day, int month,int time);
-	void printVistorInfo(int month,int day,int time );
 	void setDayOffOnce(int day);
 	void setDayOffRegular(int day);
 	void setTimeOffOnce(int time);
@@ -29,20 +27,20 @@ public:
 	Worker(std::string name, int id);
 	virtual ~Worker();
 
-	//	AppointmentLinkedList getAppointments() const {
-	//		return appointments;
-	//	}
-	//
-	//	void setAppointments(AppointmentLinkedList appointments) {
-	//		this->appointments = appointments;
-	//	}
+		AppointmentLinkedList getAppointments() const {
+			return appointments;
+		}
+
+		void setAppointments(AppointmentLinkedList appointments) {
+			this->appointments = appointments;
+		}
 
 	const Worker*& getNextWorkerInList() const {
-		return NextWorkerInList;
+		return nextWorkerInList;
 	}
 
 	void setNextWorkerInList(const Worker*& nextWorkerInList) {
-		NextWorkerInList = nextWorkerInList;
+		this->nextWorkerInList = nextWorkerInList;
 	}
 
 	int getWorkerId() const {
@@ -54,11 +52,11 @@ public:
 	}
 
 	const std::string& getWorkerName() const {
-		return WorkerName;
+		return workerName;
 	}
 
 	void setWorkerName(const std::string& workerName) {
-		WorkerName = workerName;
+		this->workerName = workerName;
 	}
 };
 

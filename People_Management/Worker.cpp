@@ -10,25 +10,13 @@
 #include <string>
 class Worker{
 private:
-	Worker* NextWorkerInList;
-	std::string WorkerName;
+	Worker* nextWorkerInList;
+	std::string workerName;
 	int workerID;
 	//	AppointmentLinkedList appointments;
 public:
 	Worker* getNextWorker(){
-		return NextWorkerInList;
-	}
-	void addAppointment(std::string name,int id){
-
-	}
-	void cancelAppointment(std::string name, int id){
-
-	}
-	void cancelAppointment(int day, int month,int time){
-
-	}
-	void printVistorInfo(int month,int day,int time ){
-
+		return nextWorkerInList;
 	}
 	void setDayOffOnce(int day){
 

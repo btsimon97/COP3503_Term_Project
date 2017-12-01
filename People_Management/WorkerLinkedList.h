@@ -11,15 +11,10 @@
 #include <string>
 
 namespace std {
-struct node
-{
-	Worker Worker;
-	node *next;
-};
 class WorkerLinkedList {
 private:
-	node *head;
-	node *tail;
+	Worker *head;
+	Worker *tail;
 public:
 	void printWorkerWeekSchedule(std::string name, int month, int weekOfMonth);
 	Worker* getHeadWorker();
@@ -27,19 +22,19 @@ public:
 	WorkerLinkedList();
 	virtual ~WorkerLinkedList();
 
-	const node*& getHead() const {
+	const Worker*& getHead() const {
 		return head;
 	}
 
-	void setHead(const node*& head) {
+	void setHead(const Worker*& head) {
 		this->head = head;
 	}
 
-	const node*& getTail() const {
+	const Worker*& getTail() const {
 		return tail;
 	}
 
-	void setTail(const node*& tail) {
+	void setTail(const Worker*& tail) {
 		this->tail = tail;
 	}
 };
