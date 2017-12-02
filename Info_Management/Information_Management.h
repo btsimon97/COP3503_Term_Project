@@ -187,6 +187,31 @@ int countMatchingAppointments(const char *DBFilePath,int workerID, char *appoint
 	return matchingRecords;
 }
 
+int countMatchingAppointments(const char *DBFilePath, int entityID, bool searchByWorker)
+{
+	int matchingRecords = 0;
+	SQLite::Database db(DBFilePath,SQLite::OPEN_READONLY);
+	if(searchByWorker == true)
+	{
+		SQLite::Statement appointmentSearch(db,"SELECT * FROM APPOINTMENTS WHERE WORKER_ID=?");
+		appointmentSearch.bind(1,entityID);
+		while(appointmentSearch.executeStep())
+		{
+			matchingRecords++;
+		}
+	}
+	else
+	{
+		SQLite::Statement appointmentSearch(db,"SELECT * FROM APPOINTMENTS WHERE VISITOR_ID=?");
+		appointmentSearch.bind(1,entityID);
+		while(appointmentSearch.executeStep())
+		{
+			matchingRecords++;
+		}
+	}
+	return matchingRecords;
+}
+
 int countMatchingAppointments(const char *DBFilePath, int workerID, char *appointmentDate, char *appointmentTime)
 {
 	int matchingRecords = 0;
