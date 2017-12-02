@@ -41,7 +41,7 @@ int Appointment::getAppointmentTime(){
 }
 
 void Appointment::printAppointment(){
-	cout << "Appointment Time: " << appointmenTime << " hours" << endl;
+	cout << "Appointment Time: " << appointmentTime << " hours" << endl;
 	cout << endl;
 	if(!offDay){
 		cout << "Visitor Name: " << visitor->getVisitorName() << endl;
@@ -55,14 +55,14 @@ void Appointment::printAppointment(){
 	return;
 }
 
-Appointment::Appointment(bool offDay, int day, int month, int year, int appointmentTime, int appointmentID, Worker* worker, string visitorName, int visitorID){
+Appointment::Appointment(bool offDay, int day, int month, int year, int appointmentTime, Worker* worker, string visitorName, int visitorID){
 	this->offDay = offDay;
 	this->day = day;
 	this->month = month;
 	this->year = year;
 	this->worker = worker;
 	this->appointmentTime = appointmentTime;
-	this->appointmentID = appointmentID
+	this->appointmentID = appointmentID;
 	this->visitor = new Visitor(visitorName, visitorID);
 }
 
