@@ -6,19 +6,20 @@
  */
 #include <iostream>
 #include <string>
+using namespace std;
 #ifndef WORKER_H_
 #define WORKER_H_
 
 class Worker {
 private:
-	std::string workerName;
+	string workerName;
 	int workerID;
-	std:: string workingDays;
+	string workingDays;
 public:
-	std::string getWorkerName();
-	std::string getWorkingDays();
+	string getWorkerName();
+	string getWorkingDays();
 	void giveDayOff(char day);
 	int getWorkerID();
-	Worker(std::string name, int id);
+	Worker(string name, int id);
 };
 
