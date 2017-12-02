@@ -5,6 +5,7 @@ Description: Functions to manipulate an appointment object.
 
 #include "Appointment.h"
 #include <iostream>
+#include <stdlib.h>
 using namespace std;
 
 Visitor* Appointment::getVisitor(){
