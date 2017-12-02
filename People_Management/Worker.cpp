@@ -8,24 +8,30 @@
 #include "Worker.h"
 #include <iostream>
 #include <string>
-class Worker{
-private:
-	Worker* nextWorkerInList;
-	std::string workerName;
-	int workerID;
-	//	AppointmentLinkedList appointments;
-public:
-	Worker* getNextWorker(){
-		return nextWorkerInList;
+std::string Worker::Worker(std:: string name, int id){
+	this->workerName = name;
+	this->workerID = id;
+	this->workingDays = "M,T,W,R,F,S,U";
+}
+
+std::string Worker::getWorkerName(){
+	return workerName;
+}
+
+int Worker::getWorkerID(){
+	return workerID;
+}
+
+std::string Worker::getWorkingDays(){
+	return workingDays;
+}
+
+void Worker::giveDayOff(char day){
+	if( day == 'M' || day == 'T' || day == 'W' || day == 'R' || day == 'F' || day == 'S' || day == 'U'){
+		//Possibly use DB Function here;
 	}
-	void setDayOffOnce(int day){
-
+	else{
+		cout << "Please input a valid day." << endl;
 	}
-	void setDayOffRegular(int day);
-	void setTimeOffOnce(int time);
-	void setTimeOffRegular(int time);
-	Worker(std::string name, int id);
-	virtual ~Worker();
-};
-
-
+	return;
+}
