@@ -13,6 +13,7 @@
 #include "../Appointments/Appointment.cpp"
 #include "../Info_Management/Information_Management.h"
 #include "../Info_Management/ScheduleManager.cpp"
+#include "../People_Management/Worker.cpp"
 /* End Include Definitions */
 
 #ifndef UI_UI_H_
@@ -64,7 +65,7 @@ void displayNewAppointmentMenu(const char *DBFilePath)
 		std:cout << "ID \t Name \n";
 		for(int i=0;i<matchCount;i++)
 		{
-			std::cout << searchResults[i].getWorkerID() << "\t" << searchResults[i].getWorkerName() << "\n";
+			std::cout << searchResults[i].getWorkerId() << "\t" << searchResults[i].getWorkerName() << "\n";
 		}
 		std::cout << "Please Enter the ID of the Matching Worker: ";
 		int workerID;
@@ -111,7 +112,7 @@ void displayNewAppointmentMenu(const char *DBFilePath)
 				std:cout << "ID \t Name \n";
 				for(int i=0;i<matchCount;i++)
 				{
-					std::cout << searchResults[i].getVisitorID() << "\t" << searchResults[i].getVisitorName() << "\n";
+					std::cout << searchResults[i].getVisitorId() << "\t" << searchResults[i].getVisitorName() << "\n";
 				}
 				std::cout << "Please Enter the ID of the Matching Visitor: ";
 				int visitorID;
