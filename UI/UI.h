@@ -9,6 +9,7 @@
 /* Begin Include Definitions */
 #include <iostream>
 #include <string>
+#include "../Appointments/Appointment.cpp"
 /* End Include Definitions */
 
 #ifndef UI_UI_H_
