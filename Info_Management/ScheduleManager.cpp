@@ -41,7 +41,7 @@ void ScheduleManager::addAppointment(bool offDay, int day, int month, int year, 
 		ThIS IS THE PLACE TO CHECK WHETHER THE VISITOR IS NEW AND ADD THE VISITOR.
 		**/
 		//False because it is not the worker's day off.
-		addNewAppointment(DBFilePath, appointmentID ,appointmentDate.c_str(), appointmentTime, workerID, visitorId, false);
+		addNewAppointment(DBFilePath, appointmentID ,appointmentDate.c_str(), appointmentTime, workerID, visitorId, offDay);
 	}
 	else{
 		cout << "An appointment has already been scheduled for this time." << endl;
