@@ -148,12 +148,12 @@ void findMatchingWorkers(const char *DBFilePath, char *workerName, Worker *resul
 	int matches = countMatchingWorkers(DBFilePath,workerName);
 	int currentIndex = 0;
 	SQLite::Database db(DBFilePath,SQLite::OPEN_READONLY);
-	SQLite::Statement personSearch(db,"SELECT * FROM PEOPLE WHERE NAME LIKE ?");
+	SQLite::Statement workerSearch(db,"SELECT * FROM WORKERS WHERE NAME LIKE ?");
 	char *searchParam = "'%"+workerName+"%'";
-	personSearch.bind(1,searchParam);
-	while(personSearch.executeStep() && currentIndex < matches)
+	workerSearch.bind(1,searchParam);
+	while(workerSearch.executeStep() && currentIndex < matches)
 	{
-		int id = personSearch.getColumn(0);
+		int id = workerSearch.getColumn(0);
 		resultsArray[currentIndex] = id;
 		currentIndex++;
 	}
@@ -176,7 +176,7 @@ int countMatchingAppointments(const char *DBFilePath,int workerID, char *appoint
 {
 	int matchingRecords = 0;
 	SQLite::Database db(DBFilePath,SQLite::OPEN_READONLY);
-	SQLite::Statement appointmentSearch(db,"SELECT * FROM APPOINTMENTS WHERE PERSON_ID=? AND APPOINTMENT_DATE=?");
+	SQLite::Statement appointmentSearch(db,"SELECT * FROM APPOINTMENTS WHERE WORKER_ID=? AND APPOINTMENT_DATE=?");
 	appointmentSearch.bind(1,workerID);
 	char *date = "\""+appointmentDate+"\"";
 	appointmentSearch.bind(2,date);
@@ -187,12 +187,12 @@ int countMatchingAppointments(const char *DBFilePath,int workerID, char *appoint
 	return matchingRecords;
 }
 
-int countMatchingAppointments(const char *DBFilePath, int personID, char *appointmentDate, char *appointmentTime)
+int countMatchingAppointments(const char *DBFilePath, int workerID, char *appointmentDate, char *appointmentTime)
 {
 	int matchingRecords = 0;
 	SQLite::Database db(DBFilePath,SQLite::OPEN_READONLY);
-	SQLite::Statement appointmentSearch(db,"SELECT * FROM APPOINTMENTS WHERE PERSON_ID=? AND APPOINTMENT_DATE=? AND APPOINTMENT_TIME=?");
-	appointmentSearch.bind(1,personID);
+	SQLite::Statement appointmentSearch(db,"SELECT * FROM APPOINTMENTS WHERE WORKER_ID=? AND APPOINTMENT_DATE=? AND APPOINTMENT_TIME=?");
+	appointmentSearch.bind(1,workerID);
 	char *date = "\""+appointmentDate+"\"";
 	appointmentSearch.bind(2,date);
 	char *time = "\""+appointmentTime+"\"";
@@ -239,7 +239,7 @@ void findAppointments(const char *DBFilePath, int workerID, char *appointmentDat
 	int matches = countMatchingAppointments(DBFilePath,workerID,appointmentDate);
 	int currentIndex = 0;
 	SQLite::Database db(DBFilePath,SQLite::OPEN_READONLY);
-	SQLite::Statement appointmentSearch(db,"SELECT * FROM APPOINTMENTS WHERE PERSON_ID=? AND APPOINTMENT_DATE=?");
+	SQLite::Statement appointmentSearch(db,"SELECT * FROM APPOINTMENTS WHERE WORKER_ID=? AND APPOINTMENT_DATE=?");
 	appointmentSearch.bind(1,workerID);
 	char *date = "\""+appointmentDate+"\"";
 	appointmentSearch.bind(2,date);
