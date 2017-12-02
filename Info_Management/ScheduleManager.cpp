@@ -193,7 +193,6 @@ void ScheduleManager::numberOfDigits(int i){
 
 int ScheduleManager::appointmentIDGenerator(){
 	srand(time(NULL));
-		//Need a countAppointments function here.
 	while(countMatchingAppointments(appointmentID) != 0){
 		appointmentID = rand();
 	}
