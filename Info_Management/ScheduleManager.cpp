@@ -14,6 +14,7 @@ void ScheduleManager::addAppointment(bool offDay, int day, int month, int year, 
 	//To check time inputs.
 	time_t t = time(0);
 	struct tm* localTime = localtime(&t);
+	Worker* worker = getWorker(DBFilePath, workerID);
 	//tm_year starts counting from 1900 and tm_mon starts months at 0.
 	if(year < (localTime->tm_year + 1900) || ((year == localTime->tm_year + 1900) && month < (localTime->tm_mon + 1)) || ((month == localTime->tm_mon + 1) && day < localTime->tm_mday)){
 		cout << "Cannot make appointments in the past." << endl;
@@ -25,6 +26,42 @@ void ScheduleManager::addAppointment(bool offDay, int day, int month, int year, 
 	}
 	else if(day < 1 || day > this->daysInMonth(month, year)){
 		cout << "Please input a valid day." << endl;
+		return;
+	}
+	time_t = time(0);
+	//Set up a time to get a day of the week for that date.
+	struct tm* potentialAppointmentDate;
+	potentialAppointmentDate->tm_mday = day;
+	potentialAppointmenDate->tm_mon = month - 1;
+	potentialAppointmentDate->tm_year = year - 1900;
+	char weekDay;
+	switch(potentialAppointment->tm_wday){
+		case 0:
+		weekDay = 'U';
+		break;
+		case 1:
+		weekDay = 'M';
+		break;
+		case 2:
+		weekDay = 'T';
+		break;
+		case 3:
+		weekDay = 'W';
+		break;
+		case 4:
+		weekDay = 'R';
+		break;
+		case 5: 
+		weekDay = 'F';
+		break;
+		case 6:
+		weekDay = 'S';
+		break;
+	}
+	int dayInWorkWeek = worker->getWorkingDays().find(weekDay);
+	//find returns -1 if the character is not found in the string.
+	if(dayInWorkWeek == -1){
+		cout << "The worker has this day off." << endl;
 		return;
 	}
 	string appointmentDate = to_string(month) + "//";
@@ -283,3 +320,4 @@ bool ScheduleManager::isBlank(string checkedString){
 	}
 	return isBlank;
 }
+
