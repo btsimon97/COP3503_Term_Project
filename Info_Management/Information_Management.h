@@ -243,7 +243,7 @@ int countMatchingAppointments(const char *DBFilePath, int entityID, bool searchB
 	return matchingRecords;
 }
 
-int countMatchingAppointments(const char *DBFilePath, int workerID, char *appointmentDate, char *appointmentTime)
+int countMatchingAppointments(const char *DBFilePath, int workerID, char *appointmentDate, int appointmentTime)
 {
 	int matchingRecords = 0;
 	SQLite::Database db(DBFilePath,SQLite::OPEN_READONLY);
@@ -251,8 +251,7 @@ int countMatchingAppointments(const char *DBFilePath, int workerID, char *appoin
 	appointmentSearch.bind(1,workerID);
 	char *date = "\""+appointmentDate+"\"";
 	appointmentSearch.bind(2,date);
-	char *time = "\""+appointmentTime+"\"";
-	appointmentSearch.bind(3,time);
+	appointmentSearch.bind(3,appointmentTime);
 	while(appointmentSearch.executeStep())
 	{
 		matchingRecords++;
@@ -316,7 +315,7 @@ void findAppointments(const char *DBFilePath, int workerID, char *appointmentDat
 	}
 }
 
-void findAppointments(const char *DBFilePath, int workerID, char *appointmentDate, char *appointmentTime, Appointment *resultsArray[])
+void findAppointments(const char *DBFilePath, int workerID, char *appointmentDate, int appointmentTime, Appointment *resultsArray[])
 {
 	int matches = countMatchingAppointments(DBFilePath,workerID,appointmentDate,appointmentTime);
 	int currentIndex = 0;
