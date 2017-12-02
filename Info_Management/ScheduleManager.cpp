@@ -7,13 +7,13 @@ Description: Functions to check validity of workers and appointments before writ
 //For printing the week.
 #include <ctime>
 #include <stdlib.h>
+#include <iostream>
 using namespace std;
 
 void ScheduleManager::addAppointment(bool offDay, int day, int month, int year, int appointmentTime, int workerID, int visitorID, const char* DBFilePath){
 	//To check time inputs.
 	time_t t = time(0);
 	struct tm* localTime = localtime(&t);
-	if()
 	//tm_year starts counting from 1900 and tm_mon starts months at 0.
 	if(year < (localTime->tm_year + 1900) || ((year == localTime->tm_year + 1900) && month < (localTime->tm_mon + 1)) || ((month == localTime->tm_mon + 1) && day < localTime->tm_mday)){
 		cout << "Cannot make appointments in the past." << endl;
@@ -23,7 +23,7 @@ void ScheduleManager::addAppointment(bool offDay, int day, int month, int year, 
 		cout << "Please input a valid month." << endl;
 		return;
 	}
-	else if(day < 1 || day > this->daysInMonth()){
+	else if(day < 1 || day > this->daysInMonth(month, year)){
 		cout << "Please input a valid day." << endl;
 		return;
 	}
@@ -36,7 +36,8 @@ void ScheduleManager::addAppointment(bool offDay, int day, int month, int year, 
 	}
 	appointmentDate +=  ("//" +  to_string(year));
 	if(countMatchingAppointments(DBFilePath, workerID, appointmentDate.c_str(), appointmentTime) == 0){
-		addNewAppointment(DBFilePath, appointmentID ,appointmentDate.c_str(), appointmentTime, workerID, visitorId, offDay);
+		int appointmentID = appointmentIDGenerator();
+		addNewAppointment(DBFilePath, appointmentID,appointmentDate.c_str(), appointmentTime, workerID, visitorID, offDay);
 	}
 	else{
 		cout << "An appointment has already been scheduled for this time." << endl;
@@ -55,7 +56,7 @@ void ScheduleManager::cancelAppointment(int day, int month, int year, int appoin
 	appointmentDate +=  ("//" +  to_string(year));
 	int size = countMatchingAppointments(DBFilePath, appointmentDate.c_str(), appointmentTime);
 	if(size == 0){
-		cout << "No such appointment found. "
+		cout << "No such appointment found." << endl;
 	}
 	else{
 		Appointment** matchedAppointments = new Appointment*[size];
@@ -80,14 +81,14 @@ void ScheduleManager::printWorkerWeekSchedule(int workerID, const char* DBFilePa
 	if(localTime->tm_mday - daysPastSunday <= 0){
 		if(localTime->tm_mon == 0){
 			startMonth = 12;
-			startDay = daysInMonth(12) - daysPastSunday;
 			startYear = localTime->tm_year +1900 - 1;
+			startDay = daysInMonth(12, startYear) - daysPastSunday;
 		}
 		else{
 			//Don't need to subtract a month because the months start from 0 in tm and will use months starting from 1.
 			startMonth = localTime->tm_mon;
-			startDay = daysInMonth(startMonth) - daysPastSunday;
 			startYear = localTime->tm_year + 1900;
+			startDay = daysInMonth(startMonth, startYear) - daysPastSunday;
 		}
 	}
 	else{
@@ -120,7 +121,7 @@ void ScheduleManager::printWorkerWeekSchedule(int workerID, const char* DBFilePa
 			cout << "Saturday Appointments:" << endl;
 			break;
 		}
-		printWorkerDaySchedule(worker, startDay, startMonth, startYear, DBFilePath);
+		printWorkerDaySchedule(workerID, startDay, startMonth, startYear, DBFilePath);
 		if(startDay + 1 > daysInMonth(startMonth)){
 			if(startMonth == 12){
 				startYear++;
@@ -156,8 +157,8 @@ void ScheduleManager::printWorkerDaySchedule(int workerID, int day, int month, i
 		cout << worker->getWorkerName() << " has the following appointments on " << appointmentDate << ": " << endl;
 		Appointment** dayAppointments = new Appointment*[meetingNumber];
 		//findAppointments is sorted by appointment ID, not chronologically.
-		findAppointments(DBFilePath, workerID, appointmentDate.c_str(), dayAppoinments);
-		chronologicalSort(dayAppointments);
+		findAppointments(DBFilePath, workerID, appointmentDate.c_str(), dayAppointments);
+		chronologicalSort(dayAppointments, meetingNumber);
 		for(int i = 0; i < meetingNumber; i++){
 			dayAppointments[i]->printAppointment();
 		}
@@ -168,7 +169,7 @@ void ScheduleManager::printWorkerDaySchedule(int workerID, int day, int month, i
 void ScheduleManager::chronologicalSort(Appointment** unsorted, int unsortedSize){
 	//The array is already sorted if it has one element. Avoid out of bounds errors.
 	if(unsortedSize > 1){
-		for(int i = unsortedSize - 1; i >= 0, i--){
+		for(int i = unsortedSize - 1; i >= 0; i--){
 			for(int j = 0; j < unsortedSize - i - 1; j++){
 				if(unsorted[j]->getAppointmentTime() > unsorted[i]->getAppointmentTime()){
 					Appointment* temp = unsorted[j];
@@ -181,7 +182,7 @@ void ScheduleManager::chronologicalSort(Appointment** unsorted, int unsortedSize
 	return;
 }
 //Ensure days of month have two digits for proper formatting.
-void ScheduleManager::numberOfDigits(int i){
+int ScheduleManager::numberOfDigits(int i){
 	//The inputted value will have at least one digit.
 	int digitNumber = 1;
 	while(i/10 != 0){
@@ -192,6 +193,7 @@ void ScheduleManager::numberOfDigits(int i){
 }
 
 int ScheduleManager::appointmentIDGenerator(){
+	int appointmentID = 0;
 	srand(time(NULL));
 	while(countMatchingAppointments(appointmentID) != 0){
 		appointmentID = rand();
@@ -221,7 +223,7 @@ void ScheduleManager::fireWorker(const char *DBFilePath, int workerID){
 	return;
 }
 
-int ScheduleManager::daysInMonth(int month){
+int ScheduleManager::daysInMonth(int month, int year){
 	switch(month){
 		case 1:
 		return 31;

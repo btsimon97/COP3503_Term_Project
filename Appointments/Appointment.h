@@ -20,8 +20,8 @@ public:
 	int getMonth();
 	int getYear();
 	bool getOffDay();
-	int getTimeSlot();
 	int getAppointmentID();
+	int getAppointmentTime();
 	void printAppointment();
 	Appointment(bool offDay, int day, int month, int year, int appointmentTime, Worker* worker, string visitorName, int visitorID);
 	~Appointment();
