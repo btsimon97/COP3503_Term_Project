@@ -95,7 +95,7 @@ void ScheduleManager::printWorkerWeekSchedule(int workerID, const char* DBFilePa
 		startDay = localTime->tm_mday - daysPastSunday;
 		startYear = localTime->tm_year + 1900;
 	}
-	cout << worker->getWorkerName() << "'s Schedule for the week of " << startDay<< "/" << startMonth << "/" << localTime->tm_year << ":" << endl;
+	cout << worker->getWorkerName() << "'s Schedule for the week of " << startMonth<< "/" << startDay << "/" << startYear << ":" << endl;
 	for(int i = 0; i < 7; i++){
 		switch(daysPastSunday){
 			case 0:
