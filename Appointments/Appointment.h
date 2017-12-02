@@ -13,13 +13,12 @@ public:
 	Worker* getWorker();
 	int getDay();
 	int getMonth();
-	int daysInMonth();
 	int getYear();
 	bool getOffDay();
 	int getTimeSlot();
 	int getAppointmentID();
 	void printAppointment();
-	Appointment(bool offDay, int day, int month, int year, int timeSlot, Worker* worker, string visitorName, int visitorID);
+	Appointment(bool offDay, int day, int month, int year, int appointmentTime, Worker* worker, string visitorName, int visitorID);
 	~Appointment();
 private:
 	bool offDay;
@@ -27,6 +26,7 @@ private:
 	int month;
 	int year;
 	int appointmentID;
+	int appointmentTime;
 	Visitor* visitor;
 	Worker* worker;
 };
