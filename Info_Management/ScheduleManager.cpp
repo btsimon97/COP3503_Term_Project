@@ -36,11 +36,6 @@ void ScheduleManager::addAppointment(bool offDay, int day, int month, int year, 
 	}
 	appointmentDate +=  ("//" +  to_string(year));
 	if(countMatchingAppointments(DBFilePath, workerID, appointmentDate.c_str(), appointmentTime) == 0){
-
-		/**
-		ThIS IS THE PLACE TO CHECK WHETHER THE VISITOR IS NEW AND ADD THE VISITOR.
-		**/
-		//False because it is not the worker's day off.
 		addNewAppointment(DBFilePath, appointmentID ,appointmentDate.c_str(), appointmentTime, workerID, visitorId, offDay);
 	}
 	else{
