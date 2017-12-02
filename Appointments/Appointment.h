@@ -2,11 +2,13 @@
 Author: J Sheldon
 Description: Functions to manipulate an appointment object.
 */
-#ifndef APPOINTMENT_H
-#define APPOINTMENT_H
 #include <string>
 #include "Visitor.h"
 #include "Worker.h"
+
+#ifndef APPOINTMENT_H
+#define APPOINTMENT_H
+
 using namespace std;
 
 class Worker;
