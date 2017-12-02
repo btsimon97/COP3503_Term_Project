@@ -5,11 +5,10 @@ Description: Functions to manipulate an appointment object.
 #include <string>
 #include "Visitor.h"
 #include "Worker.h"
+using namespace std;
 
 #ifndef APPOINTMENT_H
 #define APPOINTMENT_H
-
-using namespace std;
 
 class Worker;
 class Appointment{
