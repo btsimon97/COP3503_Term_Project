@@ -8,13 +8,14 @@
 #include "Worker.h"
 #include <iostream>
 #include <string>
-std::string Worker::Worker(std:: string name, int id){
+using namespace std;
+string Worker::Worker(string name, int id){
 	this->workerName = name;
 	this->workerID = id;
 	this->workingDays = "M,T,W,R,F,S,U";
 }
 
-std::string Worker::getWorkerName(){
+string Worker::getWorkerName(){
 	return workerName;
 }
 
@@ -22,7 +23,7 @@ int Worker::getWorkerID(){
 	return workerID;
 }
 
-std::string Worker::getWorkingDays(){
+string Worker::getWorkingDays(){
 	return workingDays;
 }
 
