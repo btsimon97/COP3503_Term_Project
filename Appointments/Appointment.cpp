@@ -1,3 +1,8 @@
+/*
+Author: J Sheldon
+Description: Functions to manipulate an appointment object.
+*/
+
 #include "Appointment.h"
 #include <iostream>
 using namespace std;
@@ -49,21 +54,15 @@ void Appointment::printAppointment(){
 	return;
 }
 
-Appointment::Appointment(bool offDay, int day, int month, int year, int appointmentTime, Worker* worker, string visitorName, int visitorID){
-	//Seed for random number generator with time.
-	srand(time(NULL));
+Appointment::Appointment(bool offDay, int day, int month, int year, int appointmentTime, int appointmentID, Worker* worker, string visitorName, int visitorID){
 	this->offDay = offDay;
 	this->day = day;
 	this->month = month;
 	this->year = year;
 	this->worker = worker;
 	this->appointmentTime = appointmentTime;
+	this->appointmentID = appointmentID
 	this->visitor = new Visitor(visitorName, visitorID);
-	this->appointmentID = 0;
-	//Need a countAppointments function here.
-	while(countMatchingAppointments(appointmentID) != 0){
-		appointmentID = rand();
-	}
 }
 
 Appointment::~Appointment(){
