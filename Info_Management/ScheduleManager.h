@@ -12,7 +12,7 @@ Description: Functions to check validity of workers and appointments before writ
 using namespace std;
 class ScheduleManager{
 public:
-	void addAppointment(bool offDay, int day, int month, int year, int appointmentTime, string workerName, string name, int id, const char* DBFilePath);
+	void addAppointment(bool offDay, int day, int month, int year, int appointmentTime, int workerID, int visitorID, const char* DBFilePath);
 	void cancelAppointment(int day, int month, int year, int appointmentTime, const char* DBFilePath);
 	void printWorkerWeekSchedule(int workerID, const char* DBFilePath);
 	void printWorkerDaySchedule(int workerID, int day, int month, int year, const char* DBFilePath);
