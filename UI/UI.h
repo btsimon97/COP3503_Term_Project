@@ -120,6 +120,23 @@ void displayNewAppointmentMenu(const char *DBFilePath)
 				std::cout << "\n";
 				ScheduleManager::addAppointment(isDayOff,day,month,year,time,workerID,visitorID,DBFilePath);
 			}
+			else
+			{
+				std::cout << "No Existing Visitors Matching that Name Were Found in the Database. \n";
+				std::cout << "Would you like to create a new visitor with this information now? (Y/N): ";
+				char response; std::cin >> response; std::cout << "\n";
+				if(response == "Y")
+				{
+					std::cout << "Please Enter the Name of the Visitor to Add: ";
+					std::string visitorName; std::cin >> visitorName; std::cout << "\n";
+					char *visitorCharName = new char [visitorName.length()+1];
+					std::strcpy (visitorChar, visitorName.c_str());
+					std::srand(std::time(NULL));
+					int visitorID = std::rand();
+					addNewVisitor(DBFilePath,visitorID,visitorCharName);
+					ScheduleManager::addAppointment(isDayOff,day,month,year,time,workerID,visitorID,DBFilePath);
+				}
+			}
 		}
 	}
 	else
