@@ -2,13 +2,14 @@
 Author: J Sheldon
 Description: Functions to check validity of workers and appointments before writing them to a data base, removing from the data base, and printing.
 */
-
-#ifndef SCHEDULEMANAGER_H
-#define SCHEDULEMANAGER_H
 #include "Appointment.h"
 #include "Worker.h"
 #include "Visitor.h"
 #include <cstring>
+
+#ifndef SCHEDULEMANAGER_H
+#define SCHEDULEMANAGER_H
+
 using namespace std;
 class ScheduleManager{
 public:
