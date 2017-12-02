@@ -42,6 +42,11 @@ int displayMainMenu()
 	return choice;
 }
 
+void displayNewAppointmentMenu()
+{
+	std::cout << "Create a New Appointment \n";
+	std::cout << "Would you like to specify the Worker by ID, or search the database?";
 
+}
 
 #endif /* UI_UI_H_ */
