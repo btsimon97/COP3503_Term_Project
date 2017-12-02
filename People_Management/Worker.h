@@ -7,8 +7,8 @@
 #include <iostream>
 #include <string>
 using namespace std;
-#ifndef WORKER_H_
-#define WORKER_H_
+#ifndef WORKER_H
+#define WORKER_H
 
 class Worker {
 private:
@@ -22,4 +22,4 @@ public:
 	int getWorkerID();
 	Worker(string name, int id);
 };
-
+#endif /* WORKER_H */
