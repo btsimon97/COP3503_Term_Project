@@ -37,20 +37,6 @@ void ScheduleManager::addAppointment(bool offDay, int day, int month, int year, 
 	return;
 }
 
-void ScheduleManager::cancelAppointment(int id, const char* DBFilePath){
-	//Do not know which function to use to find appointments with a visitor name string and id.
-	int size = countMatchingAppointments(DBFilePath, id);
-	if(size == 0){
-		cout << "No appointment was found" << endl;
-	}
-	else{
-		Appointment** matchedAppointments = new Appointment*[size];
-		for(int i = 0; i < size; i++){
-			removeAppointment(matchedAppontments[i]->getAppointmentID());
-		}
-	}
-}
-
 void ScheduleManager::cancelAppointment(int day, int month, int year, int appointmentTime, const char* DBFilePath){
 	string appointmentDate = to_string(month) + "//";
 	if(numberOfDigits(day) == 1){
@@ -66,6 +52,7 @@ void ScheduleManager::cancelAppointment(int day, int month, int year, int appoin
 	}
 	else{
 		Appointment** matchedAppointments = new Appointment*[size];
+		findAppointments(DBFilePath, worker->getWorkerID(), appointmentDate.c_str(), matchedAppointments);
 		for(int i = 0; i < size; i++){
 			removeAppointment(DBFilePath, matchedAppointments[i]->getAppointmentID());
 		}

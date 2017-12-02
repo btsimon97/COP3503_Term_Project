@@ -8,7 +8,6 @@ using namespace std;
 class ScheduleManager{
 public:
 	void addAppointment(bool offDay, int day, int month, int year, int appointmentTime, Worker* worker, string name, int id, const char* DBFilePath);
-	void cancelAppointment(int id, const char* DBFilePath);
 	void cancelAppointment(int day, int month, int year, int appointmentTime, const char* DBFilePath);
 	void printWorkerWeekSchedule(Worker* worker, const char* DBFilePath);
 	void printWorkerDaySchedule(Worker* worker, int day, int month, int year, const char* DBFilePath);
