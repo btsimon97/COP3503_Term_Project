@@ -9,7 +9,10 @@
 /* Begin Include Definitions */
 #include <iostream>
 #include <string>
+#include <cstring>
 #include "../Appointments/Appointment.cpp"
+#include "../Info_Management/Information_Management.h"
+#include "../Info_Management/ScheduleManager.cpp"
 /* End Include Definitions */
 
 #ifndef UI_UI_H_
@@ -42,11 +45,86 @@ int displayMainMenu()
 	return choice;
 }
 
-void displayNewAppointmentMenu()
+void displayNewAppointmentMenu(const char *DBFilePath)
 {
 	std::cout << "Create a New Appointment \n";
-	std::cout << "Would you like to specify the Worker by ID, or search the database?";
-
+	std::cout << "Please Enter the Name of the Employee Hosting the Appointment: ";
+	std::string employeeName;
+	std::cin >> employeeName;
+	std::cout << "\n";
+	char *cstr = new char [employeeName.length()+1];
+	std::strcpy (cstr, employeeName.c_str());
+	int matchCount = countMatchingWorkers(DBFilePath,cstr);
+	if(matchCount >= 1)
+	{
+		Worker searchResults[matchCount];
+		Worker *searchPointer[] = searchResults;
+		findMatchingWorkers(DBFilePath,cstr,searchPointer);
+		std::cout << "Worker Matches: \n";
+		std:cout << "ID \t Name \n";
+		for(int i=0;i<matchCount;i++)
+		{
+			std::cout << searchResults[i].getWorkerID() << "\t" << searchResults[i].getWorkerName() << "\n";
+		}
+		std::cout << "Please Enter the ID of the Matching Worker: ";
+		int workerID;
+		std::cin >> workerID;
+		std::cout << "\n";
+		int month; int day; int year;
+		std::cout << "Please Enter the Two-Digit Month of the Appointment: ";
+		std::cin >> month;
+		std::cout << "\n";
+		std::cout << "Please Enter the Two-Digit Day of the Appointment: ";
+		std::cin >> day;
+		std::cout << "\n";
+		std::cout << "Please Enter the Four-Digit Year of the Appointment: ";
+		std::cin >> year;
+		std::cout << "\n";
+		int time;
+		std::cout << "Please Enter the Time of the Appointment in 24-hour format (Example: 1 PM would be 1300): ";
+		std::cin >> time;
+		std::cout << "\n";
+		std::cout << "Is this Appointment being used to denote time off by the employee? (Y/N): ";
+		char response; std::cin >> response;
+		bool isDayOff;
+		if(response == "Y")
+		{
+			isDayOff = true;
+			ScheduleManager::addAppointment(isDayOff,day,month,year,time,workerID,6666,DBFilePath);
+		}
+		else
+		{
+			isDayOff = false;
+			std::cout << "Please Enter the Name of the Visitor: ";
+			std::string visitorName;
+			std::cin >> visitorName;
+			std::cout << "\n";
+			char *visitorChar = new char [visitorName.length()+1];
+			std::strcpy (visitorChar, visitorName.c_str());
+			int matchCount = countMatchingVisitors(DBFilePath,visitorChar);
+			if(matchCount >= 1)
+			{
+				Visitor searchResults[matchCount];
+				Visitor *searchPointer[] = searchResults;
+				findMatchingVisitors(DBFilePath,cstr,searchPointer);
+				std::cout << "Visitor Matches: \n";
+				std:cout << "ID \t Name \n";
+				for(int i=0;i<matchCount;i++)
+				{
+					std::cout << searchResults[i].getVisitorID() << "\t" << searchResults[i].getVisitorName() << "\n";
+				}
+				std::cout << "Please Enter the ID of the Matching Visitor: ";
+				int visitorID;
+				std::cin >> visitorID;
+				std::cout << "\n";
+				ScheduleManager::addAppointment(isDayOff,day,month,year,time,workerID,visitorID,DBFilePath);
+			}
+		}
+	}
+	else
+	{
+		std::cout << "No results found for the Employee Specified. Verify the Employee exists and try again.";
+	}
 }
 
 #endif /* UI_UI_H_ */
