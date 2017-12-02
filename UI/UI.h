@@ -186,4 +186,16 @@ void displayAppointmentCancelationMenu(const char *DBFilePath)
 	}
 }
 
+int displayAppointmentSearchMenu()
+{
+	std::cout << "Appointment Search \n";
+	std::cout << "Select a Search Option: \n";
+	std::cout << "1. Search by Appointment Date and Time \n";
+	std::cout << "2. Search by Worker, Appointment Date, and Time \n";
+	std::cout << "3. Search by Worker Only \n";
+	std::cout << "4. Search by Visitor Only \n";
+	std::cout << "Enter your selection: ";
+	int choice; std::cin >> choice; std::cout << "\n";
+	return choice;
+}
 #endif /* UI_UI_H_ */
