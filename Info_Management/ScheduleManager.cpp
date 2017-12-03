@@ -100,8 +100,8 @@ void ScheduleManager::cancelAppointment(int day, int month, int year, int appoin
 		cout << "No such appointment found." << endl;
 	}
 	else{
-		Appointment** matchedAppointments = new Appointment*[size];
-		findAppointments(DBFilePath, appointmentDate, *matchedAppointments);
+		Appointment** matchedAppointments[size];
+		findAppointments(DBFilePath, appointmentDate, appointmentTime, *matchedAppointments);
 		for(int i = 0; i < size; i++){
 			removeAppointment(DBFilePath, matchedAppointments[i]->getAppointmentID());
 		}
@@ -347,7 +347,7 @@ void ScheduleManager::printAppointmentsOnDateAndTime(int day, int month, int yea
 	}
 	else{
 		cout << "The following appointments are scheduled on " << appointmentDate << " at " << appointmentTime << " hours:" << endl;
-		Appointment** matchedAppointments = new Appointment*[count];
+		Appointment** matchedAppointments[count];
 		findAppointments(DBFilePath, appointmentDate, appointmentTime, *matchedAppointments);
 		for(int i = 0; i < count; i++){
 			matchedAppointments[i]->printAppointmentWorkerAndVisitor();
@@ -364,7 +364,7 @@ void ScheduleManager::printVisitorAppointments(int visitorID, string DBFilePath)
 	else{
 		string name = getVisitorName(DBFilePath, visitorID);
 		cout << "The following appointments are scheduled with " << name << ":" << endl;
-		Appointment** matchedAppointments = new Appointment*[count];
+		Appointment** matchedAppointments[count];
 		findAppointments(DBFilePath, visitorID, false, *matchedAppointments);
 		for(int i = 0; i < count; i++){
 			matchedAppointments[i]->printAppointmentDateTimeAndWorker();

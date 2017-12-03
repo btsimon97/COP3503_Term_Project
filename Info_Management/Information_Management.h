@@ -204,7 +204,7 @@ void findMatchingVisitors(std::string DBFilePath, std::string visitorName, Visit
 		int id = visitorSearch.getColumn("ID");
 		const char *name = visitorSearch.getColumn("NAME");
 		std::string str(name);
-		resultsArray[currentIndex] = new Visitor(name,id);
+		resultsArray[currentIndex] = new Visitor(id,name);
 		currentIndex++;
 	}
 }
