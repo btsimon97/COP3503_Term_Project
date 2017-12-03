@@ -45,10 +45,13 @@ int main()
 						switch(displayWorkerAppointmentSearchMenu())
 						{
 							case 1:
+								displayWorkerDaySearchMenu(DBFilePath);
 								break;
 							case 2:
+								displayWorkerWeekSearchMenu(DBFilePath);
 								break;
 							case 3:
+								displayWorkerAppointmentDumpMenu(DBFilePath);
 								break;
 						}
 						break;

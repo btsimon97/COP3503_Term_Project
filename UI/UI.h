@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <ctime>
 #include "../Appointments/Appointment.h"
 #include "../Info_Management/Information_Management.h"
 #include "../Info_Management/ScheduleManager.h"
@@ -68,7 +69,7 @@ void displayNewAppointmentMenu(std::string DBFilePath)
 		Worker* searchResults[matchCount];
 		findMatchingWorkers(DBFilePath,employeeName,searchResults);
 		std::cout << "Worker Matches: \n";
-		std:cout << "ID \t Name \n";
+		std::cout << "ID \t Name \n";
 		for(int i=0;i<matchCount;i++)
 		{
 			std::cout << searchResults[i]->getWorkerID() << "\t" << searchResults[i]->getWorkerName() << "\n";
@@ -87,17 +88,17 @@ void displayNewAppointmentMenu(std::string DBFilePath)
 		std::cout << "Please Enter the Four-Digit Year of the Appointment: ";
 		std::cin >> year;
 		std::cout << "\n";
-		int time;
+		int appointmentTime;
 		std::cout << "Please Enter the Time of the Appointment in 24-hour format (Example: 1 PM would be 1300): ";
-		std::cin >> time;
+		std::cin >> appointmentTime;
 		std::cout << "\n";
 		std::cout << "Is this Appointment being used to denote time off by the employee? (Y/N): ";
-		char *response; std::cin >> response;
+		std::string response; std::cin >> response;
 		bool isDayOff;
 		if(response == "Y")
 		{
 			isDayOff = true;
-			ScheduleManager::addAppointment(isDayOff,day,month,year,time,workerID,6666,DBFilePath);
+			ScheduleManager::addAppointment(isDayOff,day,month,year,appointmentTime,workerID,6666,DBFilePath);
 		}
 		else
 		{
@@ -121,21 +122,21 @@ void displayNewAppointmentMenu(std::string DBFilePath)
 				int visitorID;
 				std::cin >> visitorID;
 				std::cout << "\n";
-				ScheduleManager::addAppointment(isDayOff,day,month,year,time,workerID,visitorID,DBFilePath);
+				ScheduleManager::addAppointment(isDayOff,day,month,year,appointmentTime,workerID,visitorID,DBFilePath);
 			}
 			else
 			{
 				std::cout << "No Existing Visitors Matching that Name Were Found in the Database. \n";
 				std::cout << "Would you like to create a new visitor with this information now? (Y/N): ";
-				char *response; std::cin >> response; std::cout << "\n";
+				std::string response; std::cin >> response; std::cout << "\n";
 				if(response == "Y")
 				{
 					std::cout << "Please Enter the Name of the Visitor to Add: ";
 					std::string visitorName; std::cin >> visitorName; std::cout << "\n";
 					srand(time(NULL));
-					int visitorID = std::rand();
+					int visitorID = rand();
 					addNewVisitor(DBFilePath,visitorID,visitorName);
-					ScheduleManager::addAppointment(isDayOff,day,month,year,time,workerID,visitorID,DBFilePath);
+					ScheduleManager::addAppointment(isDayOff,day,month,year,appointmentTime,workerID,visitorID,DBFilePath);
 				}
 			}
 		}
@@ -205,6 +206,79 @@ int displayWorkerAppointmentSearchMenu()
 	std::cout << "3. Print all of a Worker's Appointments \n";
 	int choice; std::cin >> choice; std::cout << "\n";
 	return choice;
+}
+
+void displayWorkerDaySearchMenu(std::string DBFilePath)
+{
+	std::cout << "Print Worker Appointments for a Single Day \n";
+	std::cout << "Enter Worker Name: ";
+	std::string employeeName; std::cin >> employeeName; std::cout << "\n";
+	int matchCount = countMatchingWorkers(DBFilePath,employeeName);
+	if(matchCount >= 1)
+	{
+		Worker* searchResults[matchCount];
+		findMatchingWorkers(DBFilePath,employeeName,searchResults);
+		std::cout << "Worker Matches: \n";
+		std::cout << "ID \t Name \n";
+		for(int i=0;i<matchCount;i++)
+		{
+			std::cout << searchResults[i]->getWorkerID() << "\t" << searchResults[i]->getWorkerName() << "\n";
+		}
+		std::cout << "Please Enter the ID of the Matching Worker: ";
+		int workerID;
+		std::cin >> workerID;
+		std::cout << "\n";
+		std::cout << "Please Enter the two-digit appointment month : ";
+		int month; std::cin >> month; std::cout << "\n";
+		std::cout << "Please Enter the two-digit appointment day : ";
+		int day; std::cin >> day; std::cout << "\n";
+		std::cout << "Please Enter the four-digit appointment year : ";
+		int year; std::cin >> year; std::cout << "\n";
+		ScheduleManager::printWorkerDaySchedule(workerID,day,month,year,DBFilePath);
+	}
+	else
+	{
+		std::cout << "No Matching Employees Were Found. Verify the Employee exists and try again.";
+	}
+}
+
+void displayWorkerWeekSearchMenu(std::string DBFilePath)
+{
+	std::cout << "Print Worker Appointments for a Single Week \n";
+	std::cout << "Enter Worker Name: ";
+	std::string employeeName; std::cin >> employeeName; std::cout << "\n";
+	int matchCount = countMatchingWorkers(DBFilePath,employeeName);
+	if(matchCount >= 1)
+	{
+		Worker* searchResults[matchCount];
+		findMatchingWorkers(DBFilePath,employeeName,searchResults);
+		std::cout << "Worker Matches: \n";
+		std::cout << "ID \t Name \n";
+		for(int i=0;i<matchCount;i++)
+		{
+			std::cout << searchResults[i]->getWorkerID() << "\t" << searchResults[i]->getWorkerName() << "\n";
+		}
+		std::cout << "Please Enter the ID of the Matching Worker: ";
+		int workerID;
+		std::cin >> workerID;
+		std::cout << "\n";
+		std::cout << "Please Enter the two-digit appointment month : ";
+		int month; std::cin >> month; std::cout << "\n";
+		std::cout << "Please Enter the two-digit appointment day : ";
+		int day; std::cin >> day; std::cout << "\n";
+		std::cout << "Please Enter the four-digit appointment year : ";
+		int year; std::cin >> year; std::cout << "\n";
+		ScheduleManager::printWorkerWeekSchedule(workerID,day,month,year,DBFilePath);
+	}
+	else
+	{
+		std::cout << "No Matching Employees Were Found. Verify the Employee exists and try again.";
+	}
+}
+
+void displayWorkerAppointmentDumpMenu(std::string DBFilePath)
+{
+
 }
 
 void displayVisitorAppointmentSearchMenu(std::string DBFilePath)
