@@ -47,7 +47,7 @@ int main()
 								displayWorkerDaySearchMenu(DBPath);
 								break;
 							case 2:
-								displayWorkerWeekSearchMenu(DBath);
+								displayWorkerWeekSearchMenu(DBPath);
 								break;
 							case 3:
 								displayWorkerAppointmentDumpMenu(DBPath);
