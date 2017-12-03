@@ -19,9 +19,12 @@
 /* BEGIN LINKAGE OF DEPENDENT LIBRARIES */
 //#include "Libraries/SQLite/sqlite3.h"
 //#include "Libraries/SQLite/sqlite3.c"
-#include <SQLiteCpp/SQLiteCpp.h>
-#include <SQLiteCpp/VariadicBind.h>
-#include <sqlite3.h>
+#include "Libraries/SQLiteCpp/Backup.cpp"
+#include "Libraries/SQLiteCpp/Column.cpp"
+#include "Libraries/SQLiteCpp/Database.cpp"
+#include "Libraries/SQLiteCpp/Exception.cpp"
+#include "Libraries/SQLiteCpp/Statement.cpp"
+#include "Libraries/SQLiteCpp/Transaction.cpp"
 #include <iostream>
 #include <fstream>
 #include <string>
