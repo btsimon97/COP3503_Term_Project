@@ -25,7 +25,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "../Appointments/Appointment.cpp"
+#include "../Appointments/Appointment.h"
 /* END LINKAGE OF DEPENDENT LIBRARIES */
 
 bool verifyDBExists(std::string DBFilePath)
