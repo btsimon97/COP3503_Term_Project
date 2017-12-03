@@ -439,4 +439,41 @@ void findAppointments(std::string DBFilePath, int entityID, bool searchByWorker,
 		}
 	}
 }
+void findAppointments(std::string DBFilePath, std::string appointmentDate, int appointmentTime, Appointment *resultsArray[])
+{
+	int matches = countMatchingAppointments(DBFilePath,appointmentDate, appointmentTime);
+	int currentIndex = 0;
+	SQLite::Database db(DBFilePath,SQLite::OPEN_READONLY);
+	SQLite::Statement appointmentSearch(db,"SELECT * FROM APPOINTMENTS WHERE APPOINTMENT_DATE=? AND APPOINTMENT_TIME=?");
+	std::string date = "\""+appointmentDate+"\"";
+	appointmentSearch.bind(1,date);
+	int time = appointmentTime;
+	appointmentSearch.bind(2,time);
+	while(appointmentSearch.executeStep() && currentIndex<matches)
+	{
+		const char *tempBoolStorer;
+		bool isDayOff;
+		std::string date = appointmentSearch.getColumn("APPOINTMENT_DATE");
+		int month = std::stoi(date.substr(0,2));
+		int day = std::stoi(date.substr(2,2));
+		int year = std::stoi(date.substr(5,4));
+		int appointmentTime = appointmentSearch.getColumn("APPOINTMENT_TIME");
+		int visitorID = appointmentSearch.getColumn("VISITOR_ID");
+		std::string visitorName = getVisitorName(DBFilePath,visitorID);
+		int workerID = appointmentSearch.getColumn("WORKER_ID");
+		tempBoolStorer = appointmentSearch.getColumn("IS_DAY_OFF");
+		std::string str(tempBoolStorer);
+		if(str.compare("TRUE") || str.compare("1"))
+		{
+			isDayOff = true;
+		}
+		else
+		{
+			isDayOff = false;
+		}
+		Worker * linkedWorker = getWorker(DBFilePath,workerID);
+		resultsArray[currentIndex] = new Appointment(isDayOff,day,month,year,appointmentTime,linkedWorker,visitorName,visitorID);
+		currentIndex++;
+	}
+}
 #endif /* INFO_MANAGEMENT_INFORMATION_MANAGEMENT_H_ */
