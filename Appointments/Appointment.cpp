@@ -136,7 +136,7 @@ Appointment::Appointment(bool offDay, int day, int month, int year, int appointm
 	this->worker = worker;
 	this->appointmentTime = appointmentTime;
 	this->appointmentID = appointmentID;
-	this->visitor = new Visitor(visitorName, visitorID);
+	this->visitor = new Visitor(visitorID, visitorName);
 }
 
 Appointment::~Appointment(){

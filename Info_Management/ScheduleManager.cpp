@@ -6,7 +6,6 @@ Description: Functions to check validity of workers and appointments before writ
 #include "ScheduleManager.h"
 //For printing the week.
 #include <ctime>
-#include <cstring>
 #include <string>
 #include <stdlib.h>
 #include <iostream>
@@ -16,7 +15,7 @@ void ScheduleManager::addAppointment(bool offDay, int day, int month, int year, 
 	//To check time inputs.
 	time_t t = time(0);
 	struct tm* localTime = localtime(&t);
-	Worker* worker = &getWorker(DBFilePath, workerID);
+	Worker* worker = getWorker(DBFilePath, workerID);
 	//tm_year starts counting from 1900 and tm_mon starts months at 0.
 	if(year < (localTime->tm_year + 1900) || ((year == localTime->tm_year + 1900) && month < (localTime->tm_mon + 1)) || ((month == localTime->tm_mon + 1) && day < localTime->tm_mday)){
 		cout << "Cannot make appointments in the past." << endl;
@@ -30,14 +29,13 @@ void ScheduleManager::addAppointment(bool offDay, int day, int month, int year, 
 		cout << "Please input a valid day." << endl;
 		return;
 	}
-	time_t = time(0);
 	//Set up a time to get a day of the week for that date.
 	struct tm* potentialAppointmentDate;
 	potentialAppointmentDate->tm_mday = day;
-	potentialAppointmenDate->tm_mon = month - 1;
+	potentialAppointmentDate->tm_mon = month - 1;
 	potentialAppointmentDate->tm_year = year - 1900;
 	char weekDay;
-	switch(potentialAppointment->tm_wday){
+	switch(potentialAppointmentDate->tm_wday){
 		case 0:
 		weekDay = 'U';
 		break;
@@ -77,33 +75,33 @@ void ScheduleManager::addAppointment(bool offDay, int day, int month, int year, 
 		appointmentDate += to_string(day);
 	}
 	appointmentDate +=  ("//" +  to_string(year));
-	if(countMatchingAppointments(DBFilePath, workerID, appointmentDate.c_str(), appointmentTime) == 0){
+	if(countMatchingAppointments(DBFilePath, workerID, appointmentDate, appointmentTime) == 0){
 		int appointmentID = appointmentIDGenerator();
-		addNewAppointment(DBFilePath, appointmentID,appointmentDate.c_str(), appointmentTime, workerID, visitorID, offDay);
+		addNewAppointment(DBFilePath, appointmentID,appointmentDate, appointmentTime, workerID, visitorID, offDay);
 	}
 	else{
 		cout << "An appointment has already been scheduled for this time." << endl;
 	}
-	delete worker;
 	return;
 }
 
 void ScheduleManager::cancelAppointment(int day, int month, int year, int appointmentTime, string DBFilePath){
 	string appointmentDate = to_string(month) + "//";
-	if(numberOfDigits(day) == 1){
+	int dayDigits = to_string(day).length();
+	if(dayDigits== 1){
 		appointmentDate += ("0" + to_string(day));
 	}
 	else{
 		appointmentDate += to_string(day);
 	}
 	appointmentDate +=  ("//" +  to_string(year));
-	int size = countMatchingAppointments(DBFilePath, appointmentDate.c_str(), appointmentTime);
+	int size = countMatchingAppointments(DBFilePath, appointmentDate, appointmentTime);
 	if(size == 0){
 		cout << "No such appointment found." << endl;
 	}
 	else{
 		Appointment** matchedAppointments = new Appointment*[size];
-		findAppointments(DBFilePath, appointmentDate.c_str(), matchedAppointments);
+		findAppointments(DBFilePath, appointmentDate, *matchedAppointments);
 		for(int i = 0; i < size; i++){
 			removeAppointment(DBFilePath, matchedAppointments[i]->getAppointmentID());
 		}
@@ -115,7 +113,7 @@ void ScheduleManager::printWorkerWeekSchedule(int workerID, string DBFilePath){
 	//Find the current week.
 	time_t t = time(0);
 	struct tm* localTime = localtime(&t);
-	Worker* worker = &getWorker(DBFilePath, workerID);
+	Worker* worker = getWorker(DBFilePath, workerID);
 	//daysPastSunday is between 0 and 6 corresponding to Sunday to Saturday.
 	int daysPastSunday = localTime->tm_wday;
 	int startDay;
@@ -165,7 +163,7 @@ void ScheduleManager::printWorkerWeekSchedule(int workerID, string DBFilePath){
 			break;
 		}
 		printWorkerDaySchedule(workerID, startDay, startMonth, startYear, DBFilePath);
-		if(startDay + 1 > daysInMonth(startMonth)){
+		if(startDay + 1 > daysInMonth(startMonth, startYear)){
 			if(startMonth == 12){
 				startYear++;
 				startMonth = 1;
@@ -180,20 +178,20 @@ void ScheduleManager::printWorkerWeekSchedule(int workerID, string DBFilePath){
 		}
 	}
 	return;
-	delete worker;
 }
 
 void ScheduleManager::printWorkerDaySchedule(int workerID, int day, int month, int year, string DBFilePath){
-	Worker* worker = &getWorker(DBFilePath, workerID);
+	Worker* worker = getWorker(DBFilePath, workerID);
 	string appointmentDate = to_string(month) + "//";
-	if(numberOfDigits(day) == 1){
+	int dayDigits = to_string(day).length();
+	if(dayDigits == 1){
 		appointmentDate += ("0" + to_string(day));
 	}
 	else{
 		appointmentDate += to_string(day);
 	}
 	appointmentDate +=  ("//" +  to_string(year));
-	int meetingNumber = countMatchingAppointments(DBFilePath, workerID, appointmentDate.c_str());
+	int meetingNumber = countMatchingAppointments(DBFilePath, workerID, appointmentDate);
 	if(meetingNumber == 0){
 		cout << "No appointments on " << appointmentDate << endl;
 	}
@@ -201,13 +199,12 @@ void ScheduleManager::printWorkerDaySchedule(int workerID, int day, int month, i
 		cout << worker->getWorkerName() << " has the following appointments on " << appointmentDate << ": " << endl;
 		Appointment** dayAppointments = new Appointment*[meetingNumber];
 		//findAppointments is sorted by appointment ID, not chronologically.
-		findAppointments(DBFilePath, workerID, appointmentDate.c_str(), dayAppointments);
+		findAppointments(DBFilePath, workerID, appointmentDate, dayAppointments);
 		chronologicalSort(dayAppointments, meetingNumber);
 		for(int i = 0; i < meetingNumber; i++){
 			dayAppointments[i]->printAppointmentTimeAndVisitor();
 		}
 	}
-	delete worker;
 	return;
 }
 
@@ -228,16 +225,13 @@ void ScheduleManager::chronologicalSort(Appointment** unsorted, int unsortedSize
 }
 
 int ScheduleManager::appointmentIDGenerator(){
-	int appointmentID = 0;
 	srand(time(NULL));
-	while(countMatchingAppointments(appointmentID) != 0){
-		appointmentID = rand();
-	}
+	int appointmentID = rand();
 	return appointmentID;
 }
 
 void ScheduleManager::addWorker(int workerID, string workerName, string daysAvailable, int startHour, int startMinute, int stopHour, int stopMinute, string DBFilePath){
-	if(countMatchingWorkers(DBFilePath, workerName.c_str()) != 0){
+	if(countMatchingWorkers(DBFilePath, workerName) != 0){
 		cout << "Worker by the name " << workerName << " already employed here." << endl;
 		return;
 	}
@@ -249,7 +243,7 @@ void ScheduleManager::addWorker(int workerID, string workerName, string daysAvai
 		cout << "Invalid minute entry." << endl;
 		return;
 	}
-	addNewWorker(DBFilePath, workerID, workerName.c_str(), daysAvailable.c_str(), startHour, startMinute, stopHour, stopMinute);
+	addNewWorker(DBFilePath, workerID, workerName, daysAvailable, startHour, startMinute, stopHour, stopMinute);
 	return;
 }
 
@@ -321,7 +315,7 @@ bool ScheduleManager::isBlank(string checkedString){
 
 void ScheduleManager::printAllWorkerAppointments(int workerID, string DBFilePath){
 	int count = countMatchingAppointments(DBFilePath, workerID, true);
-	Worker* worker = &getWorker(DBFilePath, workerID);
+	Worker* worker = getWorker(DBFilePath, workerID);
 	if(count == 0){
 		cout << worker->getWorkerName() << " has no appointments scheduled." << endl;
 	}
@@ -339,7 +333,8 @@ void ScheduleManager::printAllWorkerAppointments(int workerID, string DBFilePath
 
 void ScheduleManager::printAppointmentsOnDateAndTime(int day, int month, int year, int appointmentTime, string DBFilePath){
 	string appointmentDate = to_string(month) + "//";
-	if(numberOfDigits(day) == 1){
+	int dayDigits = to_string(day).length();
+	if(dayDigits== 1){
 		appointmentDate += ("0" + to_string(day));
 	}
 	else{
@@ -351,11 +346,11 @@ void ScheduleManager::printAppointmentsOnDateAndTime(int day, int month, int yea
 		cout << "No appointments found on this date and time." << endl;
 	}
 	else{
-		cout << "The following appointments are scheduled on " << appointmentDate << " at " << appointmentTime << " hours:" < endl;
+		cout << "The following appointments are scheduled on " << appointmentDate << " at " << appointmentTime << " hours:" << endl;
 		Appointment** matchedAppointments = new Appointment*[count];
-		findAppointments(DBFilePath, appointmentDate, appointmentTime);
+		findAppointments(DBFilePath, appointmentDate, appointmentTime, *matchedAppointments);
 		for(int i = 0; i < count; i++){
-			matchingAppointments[i]->printWorkerAndVisitor();
+			matchedAppointments[i]->printAppointmentWorkerAndVisitor();
 		}
 	}
 	return;
@@ -370,11 +365,12 @@ void ScheduleManager::printVisitorAppointments(int visitorID, string DBFilePath)
 		string name = getVisitorName(DBFilePath, visitorID);
 		cout << "The following appointments are scheduled with " << name << ":" << endl;
 		Appointment** matchedAppointments = new Appointment*[count];
-		findAppointments(DBFilePath, name.c_str(), matchedAppointments);
+		findAppointments(DBFilePath, visitorID, false, *matchedAppointments);
 		for(int i = 0; i < count; i++){
-			matchingAppointments[i]->printAppointmentDateTimeAndWorker();
+			matchedAppointments[i]->printAppointmentDateTimeAndWorker();
 		}
 	}
 	return;
 }
+
 

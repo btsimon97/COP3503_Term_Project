@@ -9,7 +9,7 @@
 
 using namespace std;
 
-Visitor::Visitor(string name, int id){
+Visitor::Visitor(int id, string name){
 	this->visitorName = name;
 	this->visitorID = id;
 }

@@ -16,7 +16,7 @@ private:
 public:
 	int getVisitorID();
 	string getVisitorName();
-	Visitor(string name, int id);
+	Visitor(int id, string name);
 };
 
 #endif /* VISITOR_H */
