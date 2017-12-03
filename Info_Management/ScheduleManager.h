@@ -13,19 +13,19 @@ Description: Functions to check validity of workers and appointments before writ
 using namespace std;
 class ScheduleManager{
 public:
-	void addAppointment(bool offDay, int day, int month, int year, int appointmentTime, int workerID, int visitorID, const char* DBFilePath);
-	void cancelAppointment(int day, int month, int year, int appointmentTime, const char* DBFilePath);
-	void printWorkerWeekSchedule(int workerID, const char* DBFilePath);
+	void addAppointment(bool offDay, int day, int month, int year, int appointmentTime, int workerID, int visitorID, string DBFilePath);
+	void cancelAppointment(int day, int month, int year, int appointmentTime, string DBFilePath);
+	void printWorkerWeekSchedule(int workerID, string DBFilePath);
 	//Gets appointments for worker, date, and time.
-	void printWorkerDaySchedule(int workerID, int day, int month, int year, const char* DBFilePath);
+	void printWorkerDaySchedule(int workerID, int day, int month, int year, string DBFilePath);
 	//Print all of a worker's appointments.
-	void printAllWorkerAppointments(int workerID, const char* DBFilePath);
+	void printAllWorkerAppointments(int workerID, string DBFilePath);
 	//Print all appointments at certain date and time.
-	void printAppointmentsOnDateAndTime(int day, int month, int year, int appointmentTime, const char* DBFilePath);
+	void printAppointmentsOnDateAndTime(int day, int month, int year, int appointmentTime, string DBFilePath);
 	//Print all appointments for a visitor.
-	void printVisitorAppointments(int visitorID, const char* DBFilePath);
-	void fireWorker(const char *DBFilePath, int workerID);
-	void addWorker(int workerID, string workerName, string daysAvailable, int startHour, int startMinute, int stopHour, int stopMinute, const char *DBFilePath);
+	void printVisitorAppointments(int visitorID, string DBFilePath);
+	void fireWorker( string DBFilePath, int workerID);
+	void addWorker(int workerID, string workerName, string daysAvailable, int startHour, int startMinute, int stopHour, int stopMinute, string DBFilePath);
 	int appointmentIDGenerator();
 private: 
 	void chronologicalSort(Appointment** unsorted, int unsortedSize);

@@ -10,7 +10,7 @@ Description: Functions to check validity of workers and appointments before writ
 #include <iostream>
 using namespace std;
 
-void ScheduleManager::addAppointment(bool offDay, int day, int month, int year, int appointmentTime, int workerID, int visitorID, const char* DBFilePath){
+void ScheduleManager::addAppointment(bool offDay, int day, int month, int year, int appointmentTime, int workerID, int visitorID, string DBFilePath){
 	//To check time inputs.
 	time_t t = time(0);
 	struct tm* localTime = localtime(&t);
@@ -86,7 +86,7 @@ void ScheduleManager::addAppointment(bool offDay, int day, int month, int year, 
 	return;
 }
 
-void ScheduleManager::cancelAppointment(int day, int month, int year, int appointmentTime, const char* DBFilePath){
+void ScheduleManager::cancelAppointment(int day, int month, int year, int appointmentTime, string DBFilePath){
 	string appointmentDate = to_string(month) + "//";
 	if(numberOfDigits(day) == 1){
 		appointmentDate += ("0" + to_string(day));
@@ -109,7 +109,7 @@ void ScheduleManager::cancelAppointment(int day, int month, int year, int appoin
 }
 
 //Prints the worker's schedule for the current week.
-void ScheduleManager::printWorkerWeekSchedule(int workerID, const char* DBFilePath){
+void ScheduleManager::printWorkerWeekSchedule(int workerID, string DBFilePath){
 	//Find the current week.
 	time_t t = time(0);
 	struct tm* localTime = localtime(&t);
@@ -181,7 +181,7 @@ void ScheduleManager::printWorkerWeekSchedule(int workerID, const char* DBFilePa
 	delete worker;
 }
 
-void ScheduleManager::printWorkerDaySchedule(int workerID, int day, int month, int year, const char* DBFilePath){
+void ScheduleManager::printWorkerDaySchedule(int workerID, int day, int month, int year, string DBFilePath){
 	Worker* worker = &getWorker(DBFilePath, workerID);
 	string appointmentDate = to_string(month) + "//";
 	if(numberOfDigits(day) == 1){
@@ -234,7 +234,7 @@ int ScheduleManager::appointmentIDGenerator(){
 	return appointmentID;
 }
 
-void ScheduleManager::addWorker(int workerID, string workerName, string daysAvailable, int startHour, int startMinute, int stopHour, int stopMinute, const char *DBFilePath){
+void ScheduleManager::addWorker(int workerID, string workerName, string daysAvailable, int startHour, int startMinute, int stopHour, int stopMinute, string DBFilePath){
 	if(countMatchingWorkers(DBFilePath, workerName.c_str()) != 0){
 		cout << "Worker by the name " << workerName << " already employed here." << endl;
 		return;
@@ -251,7 +251,7 @@ void ScheduleManager::addWorker(int workerID, string workerName, string daysAvai
 	return;
 }
 
-void ScheduleManager::fireWorker(const char *DBFilePath, int workerID){
+void ScheduleManager::fireWorker(string DBFilePath, int workerID){
 	removeWorker(DBFilePath, workerID);
 	return;
 }
@@ -317,7 +317,7 @@ bool ScheduleManager::isBlank(string checkedString){
 	return isBlank;
 }
 
-void ScheduleManager::printAllWorkerAppointments(int workerID, const char* DBFilePath){
+void ScheduleManager::printAllWorkerAppointments(int workerID, string DBFilePath){
 	int count = countMatchingAppointments(DBFilePath, workerID, true);
 	Worker* worker = &getWorker(DBFilePath, workerID);
 	if(count == 0){
@@ -335,7 +335,7 @@ void ScheduleManager::printAllWorkerAppointments(int workerID, const char* DBFil
 	return;
 }
 
-void ScheduleManager::printAppointmentsOnDateAndTime(int day, int month, int year, int appointmentTime, const char* DBFilePath){
+void ScheduleManager::printAppointmentsOnDateAndTime(int day, int month, int year, int appointmentTime, string DBFilePath){
 	string appointmentDate = to_string(month) + "//";
 	if(numberOfDigits(day) == 1){
 		appointmentDate += ("0" + to_string(day));
@@ -359,7 +359,7 @@ void ScheduleManager::printAppointmentsOnDateAndTime(int day, int month, int yea
 	return;
 }
 
-void ScheduleManager::printVisitorAppointments(int visitorID, const char* DBFilePath){
+void ScheduleManager::printVisitorAppointments(int visitorID, string DBFilePath){
 	int count = countMatchingAppointments(DBFilePath, visitorID, false);
 	if(count == 0){
 		cout << "No appointments found for this visitor." << endl;
