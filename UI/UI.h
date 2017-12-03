@@ -19,7 +19,7 @@
 #ifndef UI_UI_H_
 #define UI_UI_H_
 
-char *getDBPath()
+const char *getDBPath()
 {
 	std::cout << "Welcome! To get started, please enter the full path to the database file you would like to open. \n";
 	std::cout << "If the DB you specified does not exist, it will be created automatically.\n";
