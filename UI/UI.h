@@ -65,7 +65,7 @@ void displayNewAppointmentMenu(const char *DBFilePath)
 		std:cout << "ID \t Name \n";
 		for(int i=0;i<matchCount;i++)
 		{
-			std::cout << searchResults[i].getWorkerId() << "\t" << searchResults[i].getWorkerName() << "\n";
+			std::cout << searchResults[i].getWorkerID() << "\t" << searchResults[i].getWorkerName() << "\n";
 		}
 		std::cout << "Please Enter the ID of the Matching Worker: ";
 		int workerID;
@@ -164,7 +164,7 @@ void displayAppointmentCancelationMenu(const char *DBFilePath)
 		std:cout << "ID \t Name \n";
 		for(int i=0;i<matchCount;i++)
 		{
-			std::cout << searchResults[i].getWorkerId() << "\t" << searchResults[i].getWorkerName() << "\n";
+			std::cout << searchResults[i].getWorkerID() << "\t" << searchResults[i].getWorkerName() << "\n";
 		}
 		std::cout << "Please Enter the ID of the Matching Worker: ";
 		int workerID;
@@ -177,8 +177,8 @@ void displayAppointmentCancelationMenu(const char *DBFilePath)
 		std::cout << "Please Enter the four-digit appointment year : ";
 		int year; std::cin >> year; std::cout << "\n";
 		std::cout << "Please Enter the appointment time in 24-hour time format (Example: 1 PM is 1300): ";
-		int time; std::cin >> time; std::cout << "\n";
-		ScheduleManager::cancelAppointment(day,month,year,time,DBFilePath);
+		int appointmentTime; std::cin >> appointmentTime; std::cout << "\n";
+		ScheduleManager::cancelAppointment(day,month,year,appointmentTime,DBFilePath);
 	}
 	else
 	{

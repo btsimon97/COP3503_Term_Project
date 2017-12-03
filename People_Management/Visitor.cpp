@@ -7,21 +7,18 @@
 
 #include "Visitor.h"
 
-namespace std {
+using namespace std;
 
-class Visitor {
-private:
-	std::string visitorName;
-	int visitorID;
-public:
-	void printVisitorInfo();
-	int getVisitorId() const {
-		return visitorID;
-	}
-	const std::string& getVisitorName() const {
-		return visitorName;
-	}
-	Visitor(std::string name, int id);
-};
+Visitor::Visitor(string name, int id){
+	this->visitorName = name;
+	this->visitorID = id;
+}
+
+int Visitor::getVisitorID(){
+	return visitorID;
+}
+
+string Visitor::getVisitorName(){
+	return visitorName;
 }
 
