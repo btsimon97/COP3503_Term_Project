@@ -53,7 +53,7 @@ int main()
 						}
 						break;
 					case 4:
-						displayVisitorAppointmentSearchMenu(DBFilePath);
+						displayVisitorAppointmentSearchMenu(DBPath);
 				}
 				break;
 				case 4:

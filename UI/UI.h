@@ -10,10 +10,10 @@
 #include <iostream>
 #include <string>
 #include <cstring>
-#include "../Appointments/Appointment.cpp"
+#include "../Appointments/Appointment.h"
 #include "../Info_Management/Information_Management.h"
-#include "../Info_Management/ScheduleManager.cpp"
-#include "../People_Management/Worker.cpp"
+#include "../Info_Management/ScheduleManager.h"
+#include "../People_Management/Worker.h"
 /* End Include Definitions */
 
 #ifndef UI_UI_H_
@@ -65,14 +65,13 @@ void displayNewAppointmentMenu(std::string DBFilePath)
 	int matchCount = countMatchingWorkers(DBFilePath,employeeName);
 	if(matchCount >= 1)
 	{
-		Worker searchResults[matchCount];
-		Worker *searchPointer[] = searchResults;
-		findMatchingWorkers(DBFilePath,employeeName,searchPointer);
+		Worker* searchResults[matchCount];
+		findMatchingWorkers(DBFilePath,employeeName,searchResults);
 		std::cout << "Worker Matches: \n";
 		std:cout << "ID \t Name \n";
 		for(int i=0;i<matchCount;i++)
 		{
-			std::cout << searchResults[i].getWorkerID() << "\t" << searchResults[i].getWorkerName() << "\n";
+			std::cout << searchResults[i]->getWorkerID() << "\t" << searchResults[i]->getWorkerName() << "\n";
 		}
 		std::cout << "Please Enter the ID of the Matching Worker: ";
 		int workerID;
@@ -93,7 +92,7 @@ void displayNewAppointmentMenu(std::string DBFilePath)
 		std::cin >> time;
 		std::cout << "\n";
 		std::cout << "Is this Appointment being used to denote time off by the employee? (Y/N): ";
-		char response; std::cin >> response;
+		char *response; std::cin >> response;
 		bool isDayOff;
 		if(response == "Y")
 		{
@@ -110,14 +109,13 @@ void displayNewAppointmentMenu(std::string DBFilePath)
 			int matchCount = countMatchingVisitors(DBFilePath,visitorName);
 			if(matchCount >= 1)
 			{
-				Visitor searchResults[matchCount];
-				Visitor *searchPointer[] = searchResults;
-				findMatchingVisitors(DBFilePath,visitorName,searchPointer);
+				Visitor* searchResults[matchCount];
+				findMatchingVisitors(DBFilePath,visitorName,searchResults);
 				std::cout << "Visitor Matches: \n";
-				std:cout << "ID \t Name \n";
+				std::cout << "ID \t Name \n";
 				for(int i=0;i<matchCount;i++)
 				{
-					std::cout << searchResults[i].getVisitorID() << "\t" << searchResults[i].getVisitorName() << "\n";
+					std::cout << searchResults[i]->getVisitorID() << "\t" << searchResults[i]->getVisitorName() << "\n";
 				}
 				std::cout << "Please Enter the ID of the Matching Visitor: ";
 				int visitorID;
@@ -129,12 +127,12 @@ void displayNewAppointmentMenu(std::string DBFilePath)
 			{
 				std::cout << "No Existing Visitors Matching that Name Were Found in the Database. \n";
 				std::cout << "Would you like to create a new visitor with this information now? (Y/N): ";
-				char response; std::cin >> response; std::cout << "\n";
+				char *response; std::cin >> response; std::cout << "\n";
 				if(response == "Y")
 				{
 					std::cout << "Please Enter the Name of the Visitor to Add: ";
 					std::string visitorName; std::cin >> visitorName; std::cout << "\n";
-					std::srand(std::time(NULL));
+					srand(time(NULL));
 					int visitorID = std::rand();
 					addNewVisitor(DBFilePath,visitorID,visitorName);
 					ScheduleManager::addAppointment(isDayOff,day,month,year,time,workerID,visitorID,DBFilePath);
@@ -158,14 +156,13 @@ void displayAppointmentCancelationMenu(std::string DBFilePath)
 	int matchCount = countMatchingWorkers(DBFilePath,employeeName);
 	if(matchCount >= 1)
 	{
-		Worker searchResults[matchCount];
-		Worker *searchPointer[] = searchResults;
-		findMatchingWorkers(DBFilePath,employeeName,searchPointer);
+		Worker* searchResults[matchCount];
+		findMatchingWorkers(DBFilePath,employeeName,searchResults);
 		std::cout << "Worker Matches: \n";
-		std:cout << "ID \t Name \n";
+		std::cout << "ID \t Name \n";
 		for(int i=0;i<matchCount;i++)
 		{
-			std::cout << searchResults[i].getWorkerID() << "\t" << searchResults[i].getWorkerName() << "\n";
+			std::cout << searchResults[i]->getWorkerID() << "\t" << searchResults[i]->getWorkerName() << "\n";
 		}
 		std::cout << "Please Enter the ID of the Matching Worker: ";
 		int workerID;
