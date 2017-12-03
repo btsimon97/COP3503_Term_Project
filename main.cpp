@@ -38,10 +38,9 @@ int main()
 				switch(displayAppointmentSearchMenu())
 				{
 					case 1:
+						displayAppointmentDateAndTimeSearch(DBPath);
 						break;
 					case 2:
-						break;
-					case 3:
 						switch(displayWorkerAppointmentSearchMenu())
 						{
 							case 1:
@@ -55,7 +54,7 @@ int main()
 								break;
 						}
 						break;
-					case 4:
+					case 3:
 						displayVisitorAppointmentSearchMenu(DBPath);
 				}
 				break;
