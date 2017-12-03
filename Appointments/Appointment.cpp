@@ -40,8 +40,81 @@ int Appointment::getAppointmentTime(){
 	return appointmentTime;
 }
 
-void Appointment::printAppointment(){
+void Appointment::printAppointmentTimeAndVisitor(){
 	cout << "Appointment Time: " << appointmentTime << " hours" << endl;
+	cout << endl;
+	if(!offDay){
+		cout << "Visitor Name: " << visitor->getVisitorName() << endl;
+		cout << "Visitor ID Number: " << visitor->getVisitorID() << endl;
+		cout << endl;
+	}
+	else{
+		cout << "Scheduled time off " << endl;
+		cout << endl;
+	}
+	return;
+}
+
+void Appointment::printAppointmentWorkerAndVisitor(){
+	if(!offDay){
+		cout << "Worker Name: "  << worker->getWorkerName() << endl;
+		cout << "Worker ID Number " << worker->getWorkerID() << endl;
+		cout << "Visitor Name: " << visitor->getVisitorName() << endl;
+		cout << "Visitor ID Number: " << visitor->getVisitorID() << endl;
+		cout << endl;
+	}
+	else{
+		cout << "Scheduled time off " << endl;
+		cout << endl;
+	}
+	return;
+}
+
+void Appointment::printAppointmentVisitor(){
+	cout << endl;
+	if(!offDay){
+		cout << "Visitor Name: " << visitor->getVisitorName() << endl;
+		cout << "Visitor ID Number: " << visitor->getVisitorID() << endl;
+		cout << endl;
+	}
+	else{
+		cout << "Scheduled time off " << endl;
+		cout << endl;
+	}
+	return;
+}
+
+void Appointment::printAppointmentDateTimeAndWorker(){
+	cout << "Appointment Time: " << appointmentTime << " hours" << endl;
+	cout << "Appointment Date: " << month << "//";
+	int dayLength = to_string(day).length();
+	if(dayLength == 1){
+		//For formatting consistency.
+		cout << "0";
+	}
+	cout << day << "//" << year << endl;
+	cout << endl;
+	if(!offDay){
+		cout << "Worker Name: " << worker->getWorkerName() << endl;
+		cout << "Worker ID Number: " << worker->getWorkerID() << endl;
+		cout << endl;
+	}
+	else{
+		cout << "Scheduled time off " << endl;
+		cout << endl;
+	}
+	return;
+}
+
+void Appointment::printAppointmentTimeDateAndVisitor(){
+	cout << "Appointment Time: " << appointmentTime << " hours" << endl;
+	cout << "Appointment Date: " << month << "//";
+	int dayLength = to_string(day).length();
+	if(dayLength == 1){
+		//For formatting consistency.
+		cout << "0";
+	}
+	cout << day << "//" << year << endl;
 	cout << endl;
 	if(!offDay){
 		cout << "Visitor Name: " << visitor->getVisitorName() << endl;
