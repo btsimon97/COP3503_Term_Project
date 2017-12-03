@@ -192,12 +192,27 @@ int displayAppointmentSearchMenu()
 	std::cout << "Appointment Search \n";
 	std::cout << "Select a Search Option: \n";
 	std::cout << "1. Search by Appointment Date and Time \n";
-	std::cout << "2. Search by Worker, Appointment Date, and Time \n";
-	std::cout << "3. Search by Worker Only \n";
-	std::cout << "4. Search by Visitor Only \n";
+	std::cout << "3. Search by Worker \n";
+	std::cout << "4. Search by Visitor \n";
 	std::cout << "Enter your selection: ";
 	int choice; std::cin >> choice; std::cout << "\n";
 	return choice;
+}
+
+int displayWorkerAppointmentSearchMenu()
+{
+	std::cout << "Worker Appointment Search \n";
+	std::cout << "Select an Option: \n";
+	std::cout << "1. Print a Worker's Appointments for a Specific Day \n";
+	std::cout << "2. Print a Worker's Appointments for a Specific Week \n";
+	std::cout << "3. Print all of a Worker's Appointments \n";
+	int choice; std::cin >> choice; std::cout << "\n";
+	return choice;
+}
+
+void displayVisitorAppointmentSearchMenu(std::string DBFilePath)
+{
+
 }
 
 int displayEmployeeManagementMenu()

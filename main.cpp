@@ -42,9 +42,18 @@ int main()
 					case 2:
 						break;
 					case 3:
+						switch(displayWorkerAppointmentSearchMenu())
+						{
+							case 1:
+								break;
+							case 2:
+								break;
+							case 3:
+								break;
+						}
 						break;
 					case 4:
-						break;
+						displayVisitorAppointmentSearchMenu(DBFilePath);
 				}
 				break;
 				case 4:
