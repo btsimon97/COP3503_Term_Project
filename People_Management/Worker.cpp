@@ -9,7 +9,7 @@
 #include <iostream>
 #include <string>
 using namespace std;
-string Worker::Worker(string name, int id){
+Worker::Worker(string name, int id){
 	this->workerName = name;
 	this->workerID = id;
 	this->workingDays = "M,T,W,R,F,S,U";

@@ -3,8 +3,8 @@ Author: J Sheldon
 Description: Functions to manipulate an appointment object.
 */
 #include <string>
-#include "Visitor.h"
-#include "Worker.h"
+#include "../People_Management/Visitor.h"
+#include "../People_Management/Worker.h"
 
 using namespace std;
 
