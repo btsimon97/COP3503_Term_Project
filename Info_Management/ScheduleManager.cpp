@@ -6,6 +6,8 @@ Description: Functions to check validity of workers and appointments before writ
 #include "ScheduleManager.h"
 //For printing the week.
 #include <ctime>
+#include <cstring>
+#include <string>
 #include <stdlib.h>
 #include <iostream>
 using namespace std;
@@ -214,7 +216,7 @@ void ScheduleManager::chronologicalSort(Appointment** unsorted, int unsortedSize
 	if(unsortedSize > 1){
 		for(int i = unsortedSize - 1; i >= 0; i--){
 			for(int j = 0; j < unsortedSize - i - 1; j++){
-				if(unsorted[j]->getAppointmentTime() > unsorted[i]->getAppointmentTime() && (unsorted[j]->getYear() >= unsorted[i]->getYear() && (unsorted[j]->getDay() >= unsorted[j]->getDay() || unsorted[j]->getMonth() > unsorted[i]->getMonth())){
+				if(unsorted[j]->getAppointmentTime() > unsorted[i]->getAppointmentTime() && (unsorted[j]->getYear() >= unsorted[i]->getYear() && (unsorted[j]->getDay() >= unsorted[j]->getDay() || unsorted[j]->getMonth() > unsorted[i]->getMonth()))){
 					Appointment* temp = unsorted[j];
 					unsorted[j] = unsorted[i];
 					unsorted[i] = temp;
@@ -352,7 +354,7 @@ void ScheduleManager::printAppointmentsOnDateAndTime(int day, int month, int yea
 		cout << "The following appointments are scheduled on " << appointmentDate << " at " << appointmentTime << " hours:" < endl;
 		Appointment** matchedAppointments = new Appointment*[count];
 		findAppointments(DBFilePath, appointmentDate, appointmentTime);
-		for(int i = 0; i < count, i++){
+		for(int i = 0; i < count; i++){
 			matchingAppointments[i]->printWorkerAndVisitor();
 		}
 	}
@@ -369,7 +371,7 @@ void ScheduleManager::printVisitorAppointments(int visitorID, string DBFilePath)
 		cout << "The following appointments are scheduled with " << name << ":" << endl;
 		Appointment** matchedAppointments = new Appointment*[count];
 		findAppointments(DBFilePath, name.c_str(), matchedAppointments);
-		for(int i = 0; i < count, i++){
+		for(int i = 0; i < count; i++){
 			matchingAppointments[i]->printAppointmentDateTimeAndWorker();
 		}
 	}

@@ -18,8 +18,4 @@
 /* End Include Directives */
 
 const char *DBPath = getDBPath();
-switch(displayMainMenu())
-{
-case 1:
-	break;
-}
+
