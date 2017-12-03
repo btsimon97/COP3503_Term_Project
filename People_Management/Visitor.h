@@ -5,8 +5,10 @@
  *      Author: David
  */
 
+
 #ifndef VISiTOR_H_
 #define VISiTOR_H_
+#include <string>
 
 namespace std {
 
