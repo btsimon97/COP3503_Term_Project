@@ -29,6 +29,15 @@ std::string getDBPath()
 	std::cout << "\n";
 	return DBPath;
 }
+
+void setupDBConnection(std::string DBPath)
+{
+	if(verifyDBExists(DBPath) == false)
+	{
+		createNewDB(DBPath);
+	}
+}
+
 int displayMainMenu()
 {
 	std::cout << "Welcome to CISE Appointment Management. Please Select From the Following Options: \n";
