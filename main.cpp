@@ -50,8 +50,26 @@ int main()
 				}
 				break;
 				case 4:
+					switch(displayEmployeeManagementMenu())
+					{
+						case 1:
+							break;
+						case 2:
+							break;
+						case 3:
+							break;
+					}
 					break;
 				case 5:
+					switch(displayVisitorManagementMenu())
+					{
+						case 1:
+							break;
+						case 2:
+							break;
+						case 3:
+							break;
+					}
 					break;
 				case 6:
 					DBPath = getDBPath();

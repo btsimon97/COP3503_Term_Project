@@ -199,4 +199,28 @@ int displayAppointmentSearchMenu()
 	int choice; std::cin >> choice; std::cout << "\n";
 	return choice;
 }
+
+int displayEmployeeManagementMenu()
+{
+	std::cout << "Manage Employee Records \n";
+	std::cout << "Select a Clerical Option: \n";
+	std::cout << "1. Add a New Worker \n";
+	std::cout << "2. Remove an Existing Worker \n";
+	std::cout << "3. Search Employee List \n";
+	std::cout << "Enter your selection: ";
+	int choice; std::cin >> choice; std::cout << "\n";
+	return choice;
+}
+
+int displayVisitorManagementMenu()
+{
+	std::cout << "Manage Visitor Records \n";
+	std::cout << "Select a Clerical Option: \n";
+	std::cout << "1. Add a New Visitor \n";
+	std::cout << "2. Remove an Existing Visitor \n";
+	std::cout << "3. Search Visitor List \n";
+	std::cout << "Enter your selection: ";
+	int choice; std::cin >> choice; std::cout << "\n";
+	return choice;
+}
 #endif /* UI_UI_H_ */
