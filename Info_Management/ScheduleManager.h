@@ -2,9 +2,10 @@
 Author: J Sheldon
 Description: Functions to check validity of workers and appointments before writing them to a data base, removing from the data base, and printing.
 */
-#include "Appointment.h"
-#include "Worker.h"
-#include "Visitor.h"
+#include "../Appointments/Appointment.h"
+#include "../People_Management/Worker.h"
+#include "../People_Management/Visitor.h"
+#include "../Info_Management/Information_Management.h"
 #include <cstring>
 
 #ifndef SCHEDULEMANAGER_H

@@ -19,7 +19,7 @@
 #ifndef UI_UI_H_
 #define UI_UI_H_
 
-char *getDBPath()
+const char *getDBPath()
 {
 	std::cout << "Welcome! To get started, please enter the full path to the database file you would like to open. \n";
 	std::cout << "If the DB you specified does not exist, it will be created automatically.\n";
@@ -112,7 +112,7 @@ void displayNewAppointmentMenu(const char *DBFilePath)
 				std:cout << "ID \t Name \n";
 				for(int i=0;i<matchCount;i++)
 				{
-					std::cout << searchResults[i].getVisitorId() << "\t" << searchResults[i].getVisitorName() << "\n";
+					std::cout << searchResults[i].getVisitorID() << "\t" << searchResults[i].getVisitorName() << "\n";
 				}
 				std::cout << "Please Enter the ID of the Matching Visitor: ";
 				int visitorID;
