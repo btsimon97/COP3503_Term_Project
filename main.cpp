@@ -12,8 +12,6 @@
 #include <string>
 #include <cstring>
 
-#include "Info_Management/Information_Management.h"
-#include "Info_Management/ScheduleManager.cpp"
 #include "UI/UI.h"
 /* End Include Directives */
 int main()
