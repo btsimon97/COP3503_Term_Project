@@ -25,7 +25,7 @@ void ScheduleManager::addAppointment(bool offDay, int day, int month, int year, 
 		cout << "Please input a valid month." << endl;
 		return;
 	}
-	else if(day < 1 || day > this->daysInMonth(month, year)){
+	else if(day < 1 || day > daysInMonth(month, year)){
 		cout << "Please input a valid day." << endl;
 		return;
 	}

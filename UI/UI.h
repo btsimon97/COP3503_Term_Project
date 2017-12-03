@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <ctime>
 #include "../Appointments/Appointment.h"
 #include "../Info_Management/Information_Management.h"
 #include "../Info_Management/ScheduleManager.h"
@@ -87,9 +88,9 @@ void displayNewAppointmentMenu(std::string DBFilePath)
 		std::cout << "Please Enter the Four-Digit Year of the Appointment: ";
 		std::cin >> year;
 		std::cout << "\n";
-		int time;
+		int usertime;
 		std::cout << "Please Enter the Time of the Appointment in 24-hour format (Example: 1 PM would be 1300): ";
-		std::cin >> time;
+		std::cin >> usertime;
 		std::cout << "\n";
 		std::cout << "Is this Appointment being used to denote time off by the employee? (Y/N): ";
 		char *response; std::cin >> response;
@@ -97,7 +98,7 @@ void displayNewAppointmentMenu(std::string DBFilePath)
 		if(response == "Y")
 		{
 			isDayOff = true;
-			ScheduleManager::addAppointment(isDayOff,day,month,year,time,workerID,6666,DBFilePath);
+			ScheduleManager::addAppointment(isDayOff,day,month,year,usertime,workerID,6666,DBFilePath);
 		}
 		else
 		{
@@ -121,7 +122,7 @@ void displayNewAppointmentMenu(std::string DBFilePath)
 				int visitorID;
 				std::cin >> visitorID;
 				std::cout << "\n";
-				ScheduleManager::addAppointment(isDayOff,day,month,year,time,workerID,visitorID,DBFilePath);
+				ScheduleManager::addAppointment(isDayOff,day,month,year,usertime,workerID,visitorID,DBFilePath);
 			}
 			else
 			{
@@ -135,7 +136,7 @@ void displayNewAppointmentMenu(std::string DBFilePath)
 					srand(time(NULL));
 					int visitorID = std::rand();
 					addNewVisitor(DBFilePath,visitorID,visitorName);
-					ScheduleManager::addAppointment(isDayOff,day,month,year,time,workerID,visitorID,DBFilePath);
+					ScheduleManager::addAppointment(isDayOff,day,month,year,usertime,workerID,visitorID,DBFilePath);
 				}
 			}
 		}
