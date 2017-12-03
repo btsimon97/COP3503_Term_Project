@@ -19,12 +19,12 @@
 #ifndef UI_UI_H_
 #define UI_UI_H_
 
-const char *getDBPath()
+std::string getDBPath()
 {
 	std::cout << "Welcome! To get started, please enter the full path to the database file you would like to open. \n";
 	std::cout << "If the DB you specified does not exist, it will be created automatically.\n";
 	std::cout << "Enter DB Path: ";
-	char *DBPath;
+	std::string DBPath;
 	std::cin >> DBPath;
 	std::cout << "\n";
 	return DBPath;
@@ -46,21 +46,19 @@ int displayMainMenu()
 	return choice;
 }
 
-void displayNewAppointmentMenu(const char *DBFilePath)
+void displayNewAppointmentMenu(std::string DBFilePath)
 {
 	std::cout << "Create a New Appointment \n";
 	std::cout << "Please Enter the Name of the Employee Hosting the Appointment: ";
 	std::string employeeName;
 	std::cin >> employeeName;
 	std::cout << "\n";
-	char *cstr = new char [employeeName.length()+1];
-	std::strcpy (cstr, employeeName.c_str());
-	int matchCount = countMatchingWorkers(DBFilePath,cstr);
+	int matchCount = countMatchingWorkers(DBFilePath,employeeName);
 	if(matchCount >= 1)
 	{
 		Worker searchResults[matchCount];
 		Worker *searchPointer[] = searchResults;
-		findMatchingWorkers(DBFilePath,cstr,searchPointer);
+		findMatchingWorkers(DBFilePath,employeeName,searchPointer);
 		std::cout << "Worker Matches: \n";
 		std:cout << "ID \t Name \n";
 		for(int i=0;i<matchCount;i++)
@@ -100,14 +98,12 @@ void displayNewAppointmentMenu(const char *DBFilePath)
 			std::string visitorName;
 			std::cin >> visitorName;
 			std::cout << "\n";
-			char *visitorChar = new char [visitorName.length()+1];
-			std::strcpy (visitorChar, visitorName.c_str());
-			int matchCount = countMatchingVisitors(DBFilePath,visitorChar);
+			int matchCount = countMatchingVisitors(DBFilePath,visitorName);
 			if(matchCount >= 1)
 			{
 				Visitor searchResults[matchCount];
 				Visitor *searchPointer[] = searchResults;
-				findMatchingVisitors(DBFilePath,cstr,searchPointer);
+				findMatchingVisitors(DBFilePath,visitorName,searchPointer);
 				std::cout << "Visitor Matches: \n";
 				std:cout << "ID \t Name \n";
 				for(int i=0;i<matchCount;i++)
@@ -129,11 +125,9 @@ void displayNewAppointmentMenu(const char *DBFilePath)
 				{
 					std::cout << "Please Enter the Name of the Visitor to Add: ";
 					std::string visitorName; std::cin >> visitorName; std::cout << "\n";
-					char *visitorCharName = new char [visitorName.length()+1];
-					std::strcpy (visitorChar, visitorName.c_str());
 					std::srand(std::time(NULL));
 					int visitorID = std::rand();
-					addNewVisitor(DBFilePath,visitorID,visitorCharName);
+					addNewVisitor(DBFilePath,visitorID,visitorName);
 					ScheduleManager::addAppointment(isDayOff,day,month,year,time,workerID,visitorID,DBFilePath);
 				}
 			}
@@ -145,21 +139,19 @@ void displayNewAppointmentMenu(const char *DBFilePath)
 	}
 }
 
-void displayAppointmentCancelationMenu(const char *DBFilePath)
+void displayAppointmentCancelationMenu(std::string DBFilePath)
 {
 	std::cout << "Cancel An Appointment \n";
 	std::cout << "Enter the Name of the Employee to Cancel the Appointment For: ";
 	std::string employeeName;
 	std::cin >> employeeName;
 	std::cout << "\n";
-	char *cstr = new char [employeeName.length()+1];
-	std::strcpy (cstr, employeeName.c_str());
-	int matchCount = countMatchingWorkers(DBFilePath,cstr);
+	int matchCount = countMatchingWorkers(DBFilePath,employeeName);
 	if(matchCount >= 1)
 	{
 		Worker searchResults[matchCount];
 		Worker *searchPointer[] = searchResults;
-		findMatchingWorkers(DBFilePath,cstr,searchPointer);
+		findMatchingWorkers(DBFilePath,employeeName,searchPointer);
 		std::cout << "Worker Matches: \n";
 		std:cout << "ID \t Name \n";
 		for(int i=0;i<matchCount;i++)

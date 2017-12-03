@@ -17,5 +17,5 @@
 #include "UI/UI.h"
 /* End Include Directives */
 
-const char *DBPath = getDBPath();
+std::string DBPath = getDBPath();
 
