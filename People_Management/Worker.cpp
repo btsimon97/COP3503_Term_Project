@@ -9,10 +9,12 @@
 #include <iostream>
 #include <string>
 using namespace std;
-Worker::Worker(string name, int id){
+Worker::Worker(string name, int id, int startTime, int stopTime){
 	this->workerName = name;
 	this->workerID = id;
 	this->workingDays = "M,T,W,R,F,S,U";
+	this->startTime = startTime;
+	this->stopTime = stopTime;
 }
 
 string Worker::getWorkerName(){
