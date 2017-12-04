@@ -15,6 +15,8 @@ private:
 	string workerName;
 	int workerID;
 	string workingDays;
+	int startTime;
+	int stopTime;
 public:
 	string getWorkerName();
 	string getWorkingDays();
