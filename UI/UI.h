@@ -272,7 +272,7 @@ void displayWorkerDaySearchMenu(std::string DBFilePath)
     }
     else
     {
-        std::cout << "No Matching Employees Were Found. Verify the Employee exists and try again.";
+        std::cout << "No Matching Employees Were Found. Verify the Employee exists and try again.\n";
     }
 }
 
