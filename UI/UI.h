@@ -95,7 +95,7 @@ void displayNewAppointmentMenu(std::string DBFilePath)
         std::cout << "Is this Appointment being used to denote time off by the employee? (Y/N): ";
         std::string response; std::cin >> response;
         bool isDayOff;
-        if(response == "Y")
+        if(response.compare("Y") == 0 || response.compare("y") == 0)
         {
             isDayOff = true;
             ScheduleManager::addAppointment(isDayOff,day,month,year,appointmentTime,workerID,6666,DBFilePath);
@@ -237,6 +237,7 @@ int displayWorkerAppointmentSearchMenu()
     std::cout << "1. Print a Worker's Appointments for a Specific Day \n";
     std::cout << "2. Print a Worker's Appointments for a Specific Week \n";
     std::cout << "3. Print all of a Worker's Appointments \n";
+    std::cout << "Please Enter your Selection: ";
     int choice; std::cin >> choice; std::cout << "\n";
     return choice;
 }
@@ -347,10 +348,11 @@ void displayVisitorAppointmentSearchMenu(std::string DBFilePath)
         {
             std::cout << searchResults[i]->getVisitorID() << "\t" << searchResults[i]->getVisitorName() << "\n";
         }
-        std::cout << "Please Enter the ID of the Matching Worker: ";
+        std::cout << "Please Enter the ID of the Matching Visitor: ";
         int visitorID;
         std::cin >> visitorID;
         std::cout << "\n";
+        ScheduleManager::printVisitorAppointments(visitorID,DBFilePath);
     }
 }
 

@@ -2,7 +2,7 @@
 
 bool verifyDBExists(std::string DBFilePath)
 {
-	std::cout << "Checking that the Database at " << DBFilePath << " exists...";
+	std::cout << "Checking that the Database at " << DBFilePath << " exists...\n";
 	std::ifstream ifile(DBFilePath);
 	return (bool)ifile;
 }
