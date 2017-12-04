@@ -78,7 +78,7 @@ void Appointment::printAppointmentVisitor(){
 		cout << endl;
 	}
 	else{
-		cout << "Scheduled time off " << endl;
+		cout << "Scheduled time off. " << endl;
 		cout << endl;
 	}
 	return;
@@ -86,13 +86,13 @@ void Appointment::printAppointmentVisitor(){
 
 void Appointment::printAppointmentDateTimeAndWorker(){
 	cout << "Appointment Time: " << appointmentTime << " hours" << endl;
-	cout << "Appointment Date: " << month << "//";
+	cout << "Appointment Date: " << month << "/";
 	int dayLength = to_string(day).length();
 	if(dayLength == 1){
 		//For formatting consistency.
 		cout << "0";
 	}
-	cout << day << "//" << year << endl;
+	cout << day << "/" << year << endl;
 	cout << endl;
 	if(!offDay){
 		cout << "Worker Name: " << worker->getWorkerName() << endl;
@@ -100,7 +100,7 @@ void Appointment::printAppointmentDateTimeAndWorker(){
 		cout << endl;
 	}
 	else{
-		cout << "Scheduled time off " << endl;
+		cout << "Scheduled time off. " << endl;
 		cout << endl;
 	}
 	return;
@@ -108,13 +108,13 @@ void Appointment::printAppointmentDateTimeAndWorker(){
 
 void Appointment::printAppointmentTimeDateAndVisitor(){
 	cout << "Appointment Time: " << appointmentTime << " hours" << endl;
-	cout << "Appointment Date: " << month << "//";
+	cout << "Appointment Date: " << month << "/";
 	int dayLength = to_string(day).length();
 	if(dayLength == 1){
 		//For formatting consistency.
 		cout << "0";
 	}
-	cout << day << "//" << year << endl;
+	cout << day << "/" << year << endl;
 	cout << endl;
 	if(!offDay){
 		cout << "Visitor Name: " << visitor->getVisitorName() << endl;
@@ -122,7 +122,7 @@ void Appointment::printAppointmentTimeDateAndVisitor(){
 		cout << endl;
 	}
 	else{
-		cout << "Scheduled time off " << endl;
+		cout << "Scheduled time off. " << endl;
 		cout << endl;
 	}
 	return;
