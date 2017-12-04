@@ -62,10 +62,13 @@ int main()
 					switch(displayEmployeeManagementMenu())
 					{
 						case 1:
+                            addNewWorker(DBPath);
 							break;
 						case 2:
+                            removeWorker(DBPath);
 							break;
 						case 3:
+                            seachForWorker(DBPath);
 							break;
 					}
 					break;
@@ -73,10 +76,13 @@ int main()
 					switch(displayVisitorManagementMenu())
 					{
 						case 1:
+                            addNewVisitor(DBPath)
 							break;
 						case 2:
+                            removeVisitor(DBPath)
 							break;
 						case 3:
+                            seachForVisitor(DBPath)
 							break;
 					}
 					break;
