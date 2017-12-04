@@ -34,7 +34,7 @@ public:
 	//Use when searching by worker, date, and time.
 	void printAppointmentVisitor();
 	void printAppointmentTimeDateAndVisitor();
-	Appointment(bool offDay, int day, int month, int year, int appointmentTime, Worker* worker, string visitorName, int visitorID);
+	Appointment(bool offDay, int day, int month, int year, int appointmentTime, Worker* worker, string visitorName, int visitorID, int appointmentID);
 	~Appointment();
 private:
 	bool offDay;
