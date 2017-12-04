@@ -106,7 +106,7 @@ Worker* getWorker(std::string DBFilePath, int workerID)
 	int stopTime;
 	//while(workerSelect.executeStep())
 	//{
-		//workerSelect.executeStep();
+		workerSelect.executeStep();
 		id = workerSelect.getColumn("ID");
 		name = workerSelect.getColumn("NAME");
 		daysAvailable = workerSelect.getColumn("DAYS_AVAILABLE");
