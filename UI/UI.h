@@ -1,8 +1,8 @@
 /*
  * UI.h
  *
- *  Created on: Dec 1, 2017
- *      Author: bsimon
+ * Created on: Dec 1, 2017
+ *      Author: bsimon, kevinbnaughton
  *      This file defines UI functions to present the user facing interface and execute functions.
  */
 
@@ -22,9 +22,9 @@
 
 std::string getDBPath()
 {
-    std::cout << "Welcome! To get started, please enter the full path to the database file you would like to open. \n";
-    std::cout << "If the DB you specified does not exist, it will be created automatically.\n";
-    std::cout << "Enter DB Path: ";
+    std::cout << "Welcome! To get started, please enter the full path to the database file you would like to open.\n";
+    std::cout << "If the DB you specified does not exist, it will be created automatically. \n";
+    std::cout << "Please Enter DB Path: ";
     std::string DBPath;
     std::cin >> DBPath;
     std::cout << "\n";
@@ -49,7 +49,7 @@ int displayMainMenu()
     std::cout << "5. Manage Visitor Records \n";
     std::cout << "6. Open a Different Appointment Database \n";
     std::cout << "7. Exit Program \n";
-    std::cout << "\n" << "Enter your Selection: ";
+    std::cout << "\n" << "Please Enter your Selection: ";
     int choice = 9;
     std::cin >> choice;
     std::cout << "\n";
@@ -126,7 +126,7 @@ void displayNewAppointmentMenu(std::string DBFilePath)
             }
             else
             {
-                std::cout << "No Existing Visitors Matching that Name Were Found in the Database. \n";
+                std::cout << "No Existing Visitors Matching that Name Were Found in the Database.\n";
                 std::cout << "Would you like to create a new visitor with this information now? (Y/N): ";
                 std::string response; std::cin >> response; std::cout << "\n";
                 if(response == "Y")
@@ -192,10 +192,11 @@ int displayAppointmentSearchMenu()
     std::cout << "1. Search by Appointment Date and Time \n";
     std::cout << "2. Search by Worker \n";
     std::cout << "3. Search by Visitor \n";
-    std::cout << "Enter your selection: ";
+    std::cout << "Please Enter your Selection: ";
     int choice; std::cin >> choice; std::cout << "\n";
     return choice;
 }
+
 /*
  int displayAppointmentDateTimeSearchMenu()
  {
@@ -203,11 +204,12 @@ int displayAppointmentSearchMenu()
  std::cout << "Select a Search Option: \n";
  std::cout << "1. Search by Appointment Date \n";
  std::cout << "2. Search by Appointment Date and Time \n";
- std::cout << "Enter your selection: ";
+ std::cout << "Please Enter your Selection: ";
  int choice; std::cin >> choice; std::cout << "\n";
  return choice;
  }
  */
+
 void displayAppointmentDateAndTimeSearch(std::string DBFilePath)
 {
     std::cout << "Search by Appointment Date and Time \n";
@@ -242,7 +244,7 @@ int displayWorkerAppointmentSearchMenu()
 void displayWorkerDaySearchMenu(std::string DBFilePath)
 {
     std::cout << "Print Worker Appointments for a Single Day \n";
-    std::cout << "Enter Worker Name: ";
+    std::cout << "Please Enter Worker Name: ";
     std::string employeeName; std::cin >> employeeName; std::cout << "\n";
     int matchCount = countMatchingWorkers(DBFilePath,employeeName);
     if(matchCount >= 1)
@@ -276,7 +278,7 @@ void displayWorkerDaySearchMenu(std::string DBFilePath)
 void displayWorkerWeekSearchMenu(std::string DBFilePath)
 {
     std::cout << "Print Worker Appointments for the Current Week \n";
-    std::cout << "Enter Worker Name: ";
+    std::cout << "Please Enter Worker Name: ";
     std::string employeeName; std::cin >> employeeName; std::cout << "\n";
     int matchCount = countMatchingWorkers(DBFilePath,employeeName);
     if(matchCount >= 1)
@@ -304,7 +306,7 @@ void displayWorkerWeekSearchMenu(std::string DBFilePath)
 void displayWorkerAppointmentDumpMenu(std::string DBFilePath)
 {
     std::cout << "Print All Worker Appointments \n";
-    std::cout << "Enter Worker Name: ";
+    std::cout << "Please Enter Worker Name: ";
     std::string employeeName; std::cin >> employeeName; std::cout << "\n";
     int matchCount = countMatchingWorkers(DBFilePath,employeeName);
     if(matchCount >= 1)
@@ -332,7 +334,7 @@ void displayWorkerAppointmentDumpMenu(std::string DBFilePath)
 void displayVisitorAppointmentSearchMenu(std::string DBFilePath)
 {
     std::cout << "Print Visitor Appointments \n";
-    std::cout << "Enter Visitor Name: ";
+    std::cout << "Please Enter Visitor Name: ";
     std::string visitorName; std::cin >> visitorName; std::cout << "\n";
     int matchCount = countMatchingVisitors(DBFilePath,visitorName);
     if(matchCount >= 1)
@@ -359,12 +361,13 @@ int displayEmployeeManagementMenu()
     std::cout << "1. Add a New Worker \n";
     std::cout << "2. Remove an Existing Worker \n";
     std::cout << "3. Search Employee List \n";
-    std::cout << "Enter your selection: ";
+    std::cout << "Please Enter your Selection: ";
     int choice; std::cin >> choice; std::cout << "\n";
     return choice;
 }
 
-void addNewWorker(std::string DBFilePath){
+void addNewWorker(std::string DBFilePath)
+{
     int workerID;
     std::string workerName;
     std::string daysAvalible;
@@ -373,27 +376,28 @@ void addNewWorker(std::string DBFilePath){
     int stopHour;
     int stopMinute;
     
-    std::cout<<"Enter the ID of the new Worker: ";
-    std::cin>>workerID;
-    std::cout<<"Enter the worker's name: ";
-    std::cin>>workerName;
-    std::cout<<"Enter days available: ";
-    std::cin>>daysAvalible;
-    std::cout<<"Enter start hour: ";
-    std::cin>>startHour;
-    std::cout<<"Enter start minute: ";
-    std::cin>>startMinute;
-    std::cout<<"Enter stop hour: ";
-    std::cin>>stopHour;
-    std::cout<<"Enter stop minute: ";
-    std::cin>>startMinute;
+    std::cout << "Please Enter the ID of the new Worker: ";
+    std::cin >> workerID;
+    std::cout << "Please Enter the worker's name: ";
+    std::cin >> workerName;
+    std::cout << "Please Enter days available: ";
+    std::cin >> daysAvalible;
+    std::cout << "Please Enter start hour: ";
+    std::cin >> startHour;
+    std::cout << "Please Enter start minute: ";
+    std::cin >> startMinute;
+    std::cout << "Please Enter stop hour: ";
+    std::cin >> stopHour;
+    std::cout << "Please Enter stop minute: ";
+    std::cin >> startMinute;
     addNewWorker(DBFilePath, workerID, workerName, daysAvalible, startHour, startMinute, stopHour, stopMinute);
 }
 
-void removeWorker(std::string DBFilePath){
+void removeWorker(std::string DBFilePath)
+{
     int workerID;
-    std::cout<<"Enter worker ID to remove: ";
-    std::cin>>workerID;
+    std::cout << "Please Enter worker ID to remove: ";
+    std::cin >> workerID;
     removeWorker(DBFilePath,workerID);
 }
 
@@ -415,55 +419,57 @@ void seachForWorker(std::string DBFilePath)
         }
     }
 }
-    int displayVisitorManagementMenu()
-    {
-        std::cout << "Manage Visitor Records \n";
-        std::cout << "Select a Clerical Option: \n";
-        std::cout << "1. Add a New Visitor \n";
-        std::cout << "2. Remove an Existing Visitor \n";
-        std::cout << "3. Search Visitor List \n";
-        std::cout << "Enter your selection: ";
-        int choice; std::cin >> choice; std::cout << "\n";
-        return choice;
-    }
+
+int displayVisitorManagementMenu()
+{
+    std::cout << "Manage Visitor Records \n";
+    std::cout << "Select a Clerical Option: \n";
+    std::cout << "1. Add a New Visitor \n";
+    std::cout << "2. Remove an Existing Visitor \n";
+    std::cout << "3. Search Visitor List \n";
+    std::cout << "Please Enter your Selection: ";
+    int choice; std::cin >> choice; std::cout << "\n";
+    return choice;
+}
     
-    void displayNewVisitorMenu(std::string DBFilePath)
-    {
-        int visitorID;
-        std::string visitorName;
-        std::cout<<"Enter the ID of the new visitor: ";
-        std::cin>>visitorID;
-        std::cout<<"Enter the visitor's name: ";
-        std::cin>>visitorName;
-        addNewVisitor(DBFilePath, visitorID, visitorName);
-    }
+void displayNewVisitorMenu(std::string DBFilePath)
+{
+    int visitorID;
+    std::string visitorName;
+    std::cout<<"Please Enter the ID of the new visitor: ";
+    std::cin>>visitorID;
+    std::cout<<"Please Enter the visitor's name: ";
+    std::cin>>visitorName;
+    addNewVisitor(DBFilePath, visitorID, visitorName);
+}
     
-    void displayRemoveVisitorMenu(std::string DBFilePath)
-    {
-        int visitorID;
-        std::cout<<"Enter visitor ID to remove: ";
-        std::cin>>visitorID;
-        removeVisitor(DBFilePath, visitorID);
-    }
+void displayRemoveVisitorMenu(std::string DBFilePath)
+{
+    int visitorID;
+    std::cout<<"Please Enter visitor ID to remove: ";
+    std::cin>>visitorID;
+    removeVisitor(DBFilePath, visitorID);
+}
     
-    void displayVisitorSearchMenu(std::string DBFilePath)
+void displayVisitorSearchMenu(std::string DBFilePath)
+{
+    std::string visitorName;
+    std::cout << "Please Enter the Name of the visitor: ";
+    std::cin >> visitorName;
+    int matchCount = countMatchingVisitors(DBFilePath,visitorName);
+    if(matchCount >= 1)
     {
-        std::string visitorName;
-        std::cout << "Please Enter the Name of the visitor: ";
-        std::cin >> visitorName;
-        int matchCount = countMatchingVisitors(DBFilePath,visitorName);
-        if(matchCount >= 1)
+        Visitor* searchResults[matchCount];
+        findMatchingVisitors(DBFilePath,visitorName,searchResults);
+        std::cout << "Visitor Matches: \n";
+        std::cout << "ID \t Name \n";
+        for(int i=0;i<matchCount;i++)
         {
-            Visitor* searchResults[matchCount];
-            findMatchingVisitors(DBFilePath,visitorName,searchResults);
-            std::cout << "Visitor Matches: \n";
-            std::cout << "ID \t Name \n";
-            for(int i=0;i<matchCount;i++)
-            {
-                std::cout << searchResults[i]->getVisitorID() << "\t" << searchResults[i]->getVisitorName() << "\n";
-            }
+            std::cout << searchResults[i]->getVisitorID() << "\t" << searchResults[i]->getVisitorName() << "\n";
         }
     }
+}
+
 #endif /* UI_UI_H_ */
         
 
