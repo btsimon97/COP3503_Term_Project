@@ -7,7 +7,7 @@ obj/worker.o:
 obj/vistor.o:
 	g++ -c -std=c++11 People_Management/Visitor.cpp -o obj/vistor.o
 obj/appointment.o:
-	g++ -c -std=c++11 Appointments/appointment.cpp -o obj/appointment.o
+	g++ -c -std=c++11 Appointments/Appointment.cpp -o obj/appointment.o
 obj/information.o:
 	g++ -c -std=c++11 -I Info_Management/include/ Info_Management/Information_Management.cpp -o obj/information.o
 obj/main.o:
