@@ -382,7 +382,7 @@ void addNewWorker(std::string DBFilePath)
     std::cin >> workerID;
     std::cout << "Please Enter the worker's name: ";
     std::cin >> workerName;
-    std::cout << "Please Enter days available: ";
+    std::cout << "Please Enter days available in the form of comma-separated one-letter day codes (Example: M,W,F) (Note: Use UF Schedule Day Codes, with U for Sunday and S for Saturday): ";
     std::cin >> daysAvalible;
     std::cout << "Please Enter start hour: ";
     std::cin >> startHour;
