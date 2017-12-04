@@ -104,16 +104,18 @@ Worker* getWorker(std::string DBFilePath, int workerID)
 	const char *daysAvailable;
 	int startTime;
 	int stopTime;
-	while(workerSelect.executeStep())
-	{
-		id = std::stoi(workerSelect.getColumn("ID"));
+	//while(workerSelect.executeStep())
+	//{
+		//workerSelect.executeStep();
+		id = workerSelect.getColumn("ID");
 		name = workerSelect.getColumn("NAME");
 		daysAvailable = workerSelect.getColumn("DAYS_AVAILABLE");
-		startTime = std::stoi(workerSelect.getColumn("START_TIME"));
-		stopTime = std::stoi(workerSelect.getColumn("STOP_TIME"));
-	}
-	std::string str(name);
-	Worker * returner = new Worker(name,id); //TODO: Fix this once Worker class gets corrected.
+		startTime = workerSelect.getColumn("START_TIME");
+		stopTime = workerSelect.getColumn("STOP_TIME");
+	//}
+	//std::string str(name);
+	//std::string str2(daysAvailable);
+	Worker * returner = new Worker(name,id,startTime,stopTime,daysAvailable); //TODO: Fix this once Worker class gets corrected.
 	return returner;
 }
 
@@ -129,8 +131,14 @@ void findMatchingWorkers(std::string DBFilePath, std::string workerName, Worker 
 	{
 		int id = workerSearch.getColumn("ID");
 		const char *name = workerSearch.getColumn("NAME");
+		const char *daysAvailable;
+		int startTime;
+		int stopTime;
 		std::string str(name);
-		resultsArray[currentIndex] = new Worker(name,id);
+		daysAvailable = workerSearch.getColumn("DAYS_AVAILABLE");
+		startTime = workerSearch.getColumn("START_TIME");
+		stopTime = workerSearch.getColumn("STOP_TIME");
+		resultsArray[currentIndex] = new Worker(str,id,startTime,stopTime,daysAvailable);
 		currentIndex++;
 	}
 }
@@ -155,11 +163,11 @@ std::string getVisitorName(std::string DBFilePath,int visitorID)
 	SQLite::Statement visitorSelect(db,"SELECT * FROM VISITORS WHERE ID = ?");
 	const char* name;
 	visitorSelect.bind(1,visitorID);
-	while(visitorSelect.executeStep())
-	{
+	//while(visitorSelect.executeStep())
+	//{
+		visitorSelect.executeStep();
 		name = visitorSelect.getColumn("NAME");
-	}
-	std::string str(name);
+	//}
 	return name;
 }
 
@@ -176,7 +184,7 @@ void findMatchingVisitors(std::string DBFilePath, std::string visitorName, Visit
 		int id = visitorSearch.getColumn("ID");
 		const char *name = visitorSearch.getColumn("NAME");
 		std::string str(name);
-		resultsArray[currentIndex] = new Visitor(id,name);
+		resultsArray[currentIndex] = new Visitor(id,str);
 		currentIndex++;
 	}
 }
@@ -202,6 +210,7 @@ int countMatchingAppointments(std::string DBFilePath, int entityID, bool searchB
 	SQLite::Database db(DBFilePath,SQLite::OPEN_READONLY);
 	if(searchByWorker == true)
 	{
+		std::cout << "Running Count on Worker...";
 		SQLite::Statement appointmentSearch(db,"SELECT * FROM APPOINTMENTS WHERE WORKER_ID = ?");
 		appointmentSearch.bind(1,entityID);
 		while(appointmentSearch.executeStep())
@@ -280,6 +289,7 @@ void findAppointments(std::string DBFilePath, int workerID, std::string appointm
 	{
 		bool isDayOff;
 		const char *tempBoolStorer;
+		int appointmentID = appointmentSearch.getColumn("ID");
 		std::string date = appointmentSearch.getColumn("APPOINTMENT_DATE");
 		int month = std::stoi(date.substr(0,2));
 		int day = std::stoi(date.substr(3,2));
@@ -299,7 +309,7 @@ void findAppointments(std::string DBFilePath, int workerID, std::string appointm
 		{
 			isDayOff = false;
 		}
-		resultsArray[currentIndex] = new Appointment(isDayOff,day,month,year,appointmentTime,linkedWorker,visitorName,visitorID);
+		resultsArray[currentIndex] = new Appointment(isDayOff,day,month,year,appointmentTime,linkedWorker,visitorName,visitorID,appointmentID);
 		currentIndex++;
 	}
 }
@@ -319,6 +329,7 @@ void findAppointments(std::string DBFilePath, int workerID, std::string appointm
 	{
 		bool isDayOff;
 		const char *tempBoolStorer;
+		int appointmentID = appointmentSearch.getColumn("ID");
 		std::string date = appointmentSearch.getColumn("APPOINTMENT_DATE");
 		int month = std::stoi(date.substr(0,2));
 		int day = std::stoi(date.substr(3,2));
@@ -338,7 +349,7 @@ void findAppointments(std::string DBFilePath, int workerID, std::string appointm
 			isDayOff = false;
 		}
 		Worker * linkedWorker = getWorker(DBFilePath,workerID);
-		resultsArray[currentIndex] = new Appointment(isDayOff,day,month,year,appointmentTime,linkedWorker,visitorName,visitorID);
+		resultsArray[currentIndex] = new Appointment(isDayOff,day,month,year,appointmentTime,linkedWorker,visitorName,visitorID,appointmentID);
 		currentIndex++;
 	}
 }
@@ -346,16 +357,19 @@ void findAppointments(std::string DBFilePath, int workerID, std::string appointm
 void findAppointments(std::string DBFilePath, int entityID, bool searchByWorker, Appointment *resultsArray[])
 {
 	int matches = countMatchingAppointments(DBFilePath,entityID,searchByWorker);
+	std::cout << "Completed Count";
 	int currentIndex = 0;
 	SQLite::Database db(DBFilePath,SQLite::OPEN_READONLY);
 	if(searchByWorker == true)
 	{
 		SQLite::Statement appointmentSearch(db,"SELECT * FROM APPOINTMENTS WHERE WORKER_ID = ?");
 		appointmentSearch.bind(1,entityID);
-		while(appointmentSearch.executeStep() && currentIndex<matches)
+		while(appointmentSearch.executeStep())
 		{
 			const char *tempBoolStorer;
 			bool isDayOff;
+			std::cout << "Running Search on Worker...";
+			int appointmentID = appointmentSearch.getColumn("ID");
 			std::string date = appointmentSearch.getColumn("APPOINTMENT_DATE");
 			int month = std::stoi(date.substr(0,2));
 			int day = std::stoi(date.substr(3,2));
@@ -375,7 +389,7 @@ void findAppointments(std::string DBFilePath, int entityID, bool searchByWorker,
 				isDayOff = false;
 			}
 			Worker * linkedWorker = getWorker(DBFilePath,workerID);
-			resultsArray[currentIndex] = new Appointment(isDayOff,day,month,year,appointmentTime,linkedWorker,visitorName,visitorID);
+			resultsArray[currentIndex] = new Appointment(isDayOff,day,month,year,appointmentTime,linkedWorker,visitorName,visitorID,appointmentID);
 			currentIndex++;
 		}
 	}
@@ -387,6 +401,7 @@ void findAppointments(std::string DBFilePath, int entityID, bool searchByWorker,
 		{
 			const char *tempBoolStorer;
 			bool isDayOff;
+			int appointmentID = appointmentSearch.getColumn("ID");
 			std::string date = appointmentSearch.getColumn("APPOINTMENT_DATE");
 			int month = std::stoi(date.substr(0,2));
 			int day = std::stoi(date.substr(3,2));
@@ -406,7 +421,7 @@ void findAppointments(std::string DBFilePath, int entityID, bool searchByWorker,
 				isDayOff = false;
 			}
 			Worker * linkedWorker = getWorker(DBFilePath,workerID);
-			resultsArray[currentIndex] = new Appointment(isDayOff,day,month,year,appointmentTime,linkedWorker,visitorName,visitorID);
+			resultsArray[currentIndex] = new Appointment(isDayOff,day,month,year,appointmentTime,linkedWorker,visitorName,visitorID,appointmentID);
 			currentIndex++;
 		}
 	}
@@ -425,6 +440,7 @@ void findAppointments(std::string DBFilePath, std::string appointmentDate, int a
 	{
 		const char *tempBoolStorer;
 		bool isDayOff;
+		int appointmentID = appointmentSearch.getColumn("ID");
 		std::string date = appointmentSearch.getColumn("APPOINTMENT_DATE");
 		int month = std::stoi(date.substr(0,2));
 		int day = std::stoi(date.substr(3,2));
@@ -444,7 +460,7 @@ void findAppointments(std::string DBFilePath, std::string appointmentDate, int a
 			isDayOff = false;
 		}
 		Worker * linkedWorker = getWorker(DBFilePath,workerID);
-		resultsArray[currentIndex] = new Appointment(isDayOff,day,month,year,appointmentTime,linkedWorker,visitorName,visitorID);
+		resultsArray[currentIndex] = new Appointment(isDayOff,day,month,year,appointmentTime,linkedWorker,visitorName,visitorID,appointmentID);
 		currentIndex++;
 	}
 }

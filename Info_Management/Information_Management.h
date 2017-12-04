@@ -28,6 +28,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
 #include "../Appointments/Appointment.h"
 /* END LINKAGE OF DEPENDENT LIBRARIES */
 

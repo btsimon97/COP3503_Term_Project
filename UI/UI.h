@@ -324,6 +324,7 @@ void displayWorkerAppointmentDumpMenu(std::string DBFilePath)
         int workerID;
         std::cin >> workerID;
         std::cout << "\n";
+        std::cout << "At the UI!";
         ScheduleManager::printAllWorkerAppointments(workerID,DBFilePath);
     }
     else
