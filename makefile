@@ -1,5 +1,10 @@
 AppointmentManager: obj/sqlite.o obj/schedule.o obj/worker.o obj/vistor.o obj/appointment.o obj/main.o obj/backup.o obj/column.o obj/database.o obj/exception.o obj/statement.o obj/transaction.o obj/information.o
+	g++ -pthread -o AppointmentManager obj/sqlite.o obj/schedule.o obj/worker.o obj/vistor.o obj/appointment.o obj/main.o obj/column.o obj/database.o obj/exception.o obj/statement.o obj/transaction.o obj/information.o -ldl
+
+Windows: obj/sqlite.o obj/schedule.o obj/worker.o obj/vistor.o obj/appointment.o obj/main.o obj/backup.o obj/column.o obj/database.o obj/exception.o obj/statement.o obj/transaction.o obj/information.o
 	g++ -o AppointmentManager obj/sqlite.o obj/schedule.o obj/worker.o obj/vistor.o obj/appointment.o obj/main.o obj/column.o obj/database.o obj/exception.o obj/statement.o obj/transaction.o obj/information.o
+	
+	
 obj/schedule.o:
 	g++ -c -std=c++11 -I Info_Management/include/ Info_Management/ScheduleManager.cpp -o obj/schedule.o
 obj/worker.o:
