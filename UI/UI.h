@@ -377,7 +377,7 @@ void addNewWorker(std::string DBFilePath){
     std::cin>>workerID;
     std::cout<<"Enter the worker's name: ";
     std::cin>>workerName;
-    std::cout<<"Enter days avalible: ";
+    std::cout<<"Enter days available: ";
     std::cin>>daysAvalible;
     std::cout<<"Enter start hour: ";
     std::cin>>startHour;

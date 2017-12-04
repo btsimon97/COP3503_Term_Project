@@ -2,7 +2,7 @@
 
 bool verifyDBExists(std::string DBFilePath)
 {
-	std::cout << "Checking that the Database at" << DBFilePath << " exists...";
+	std::cout << "Checking that the Database at " << DBFilePath << " exists...";
 	std::ifstream ifile(DBFilePath);
 	return (bool)ifile;
 }
@@ -26,10 +26,10 @@ void createNewDB(std::string DBFilePath)
 									"APPOINTMENT_DATE TEXT NOT NULL," \
 									"APPOINTMENT_TIME INT NOT NULL," \
 									"WORKER_ID INTEGER NOT NULL," \
-									"VISITOR_ID INTEGER," \
+									"VISITOR_ID INTEGER NOT NULL," \
 									"IS_DAY_OFF BOOLEAN NOT NULL," \
-									"VISITOR_LINK FOREIGN KEY (VISITOR_ID) REFERENCES VISITOR(ID)," \
-									"WORKER_LINK FOREIGN KEY (WORKER_ID) REFERENCES WORKER(ID));";
+									"FOREIGN KEY (VISITOR_ID) REFERENCES VISITOR(ID)," \
+									"FOREIGN KEY (WORKER_ID) REFERENCES WORKER(ID));";
 	db.exec(appointmentSQL);
 }
 
