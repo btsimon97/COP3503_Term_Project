@@ -162,13 +162,15 @@ std::string getVisitorName(std::string DBFilePath,int visitorID)
 	SQLite::Database db(DBFilePath,SQLite::OPEN_READONLY);
 	SQLite::Statement visitorSelect(db,"SELECT * FROM VISITORS WHERE ID = ?");
 	const char* name;
+	std::string str;
 	visitorSelect.bind(1,visitorID);
-	//while(visitorSelect.executeStep())
-	//{
-		visitorSelect.executeStep();
+	while(visitorSelect.executeStep())
+	{
 		name = visitorSelect.getColumn("NAME");
-	//}
-	return name;
+		std::string strtemp(name);
+		str = strtemp;
+	}
+	return str;
 }
 
 void findMatchingVisitors(std::string DBFilePath, std::string visitorName, Visitor *resultsArray[])
@@ -210,7 +212,6 @@ int countMatchingAppointments(std::string DBFilePath, int entityID, bool searchB
 	SQLite::Database db(DBFilePath,SQLite::OPEN_READONLY);
 	if(searchByWorker == true)
 	{
-		std::cout << "Running Count on Worker...";
 		SQLite::Statement appointmentSearch(db,"SELECT * FROM APPOINTMENTS WHERE WORKER_ID = ?");
 		appointmentSearch.bind(1,entityID);
 		while(appointmentSearch.executeStep())
@@ -357,7 +358,6 @@ void findAppointments(std::string DBFilePath, int workerID, std::string appointm
 void findAppointments(std::string DBFilePath, int entityID, bool searchByWorker, Appointment *resultsArray[])
 {
 	int matches = countMatchingAppointments(DBFilePath,entityID,searchByWorker);
-	std::cout << "Completed Count";
 	int currentIndex = 0;
 	SQLite::Database db(DBFilePath,SQLite::OPEN_READONLY);
 	if(searchByWorker == true)
@@ -368,7 +368,6 @@ void findAppointments(std::string DBFilePath, int entityID, bool searchByWorker,
 		{
 			const char *tempBoolStorer;
 			bool isDayOff;
-			std::cout << "Running Search on Worker...";
 			int appointmentID = appointmentSearch.getColumn("ID");
 			std::string date = appointmentSearch.getColumn("APPOINTMENT_DATE");
 			int month = std::stoi(date.substr(0,2));
