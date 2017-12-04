@@ -303,7 +303,7 @@ void displayWorkerWeekSearchMenu(std::string DBFilePath)
 
 void displayWorkerAppointmentDumpMenu(std::string DBFilePath)
 {
-    std::cout << "Print Worker Appointments for the Current Week \n";
+    std::cout << "Print All Worker Appointments \n";
     std::cout << "Enter Worker Name: ";
     std::string employeeName; std::cin >> employeeName; std::cout << "\n";
     int matchCount = countMatchingWorkers(DBFilePath,employeeName);
