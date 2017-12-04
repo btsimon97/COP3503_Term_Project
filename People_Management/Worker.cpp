@@ -28,13 +28,3 @@ int Worker::getWorkerID(){
 string Worker::getWorkingDays(){
 	return workingDays;
 }
-
-void Worker::giveDayOff(char day){
-	if( day == 'M' || day == 'T' || day == 'W' || day == 'R' || day == 'F' || day == 'S' || day == 'U'){
-		//Possibly use DB Function here;
-	}
-	else{
-		cout << "Please input a valid day." << endl;
-	}
-	return;
-}

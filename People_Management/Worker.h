@@ -20,7 +20,6 @@ private:
 public:
 	string getWorkerName();
 	string getWorkingDays();
-	void giveDayOff(char day);
 	int getWorkerID();
 	Worker(string name, int id, int startTime, int stopTime, string workingDays);
 };
