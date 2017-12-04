@@ -67,7 +67,7 @@ void ScheduleManager::addAppointment(bool offDay, int day, int month, int year, 
 		cout << "The worker has this day off." << endl;
 		return;
 	}
-	string appointmentDate = to_string(month) + "//";
+	string appointmentDate = to_string(month) + "/";
 	//Date value needs to have two digits for manipulation.
 	//.length() gives unsigned integer, which causes issues with comparisons.
 	int dayDigits = to_string(day).length();
@@ -77,7 +77,7 @@ void ScheduleManager::addAppointment(bool offDay, int day, int month, int year, 
 	else{
 		appointmentDate += to_string(day);
 	}
-	appointmentDate +=  ("//" +  to_string(year));
+	appointmentDate +=  ("/" +  to_string(year));
 	if(countMatchingAppointments(DBFilePath, workerID, appointmentDate, appointmentTime) == 0){
 		int appointmentID = appointmentIDGenerator();
 		addNewAppointment(DBFilePath, appointmentID,appointmentDate, appointmentTime, workerID, visitorID, offDay);
@@ -90,7 +90,7 @@ void ScheduleManager::addAppointment(bool offDay, int day, int month, int year, 
 }
 
 void ScheduleManager::cancelAppointment(int day, int month, int year, int appointmentTime, string DBFilePath){
-	string appointmentDate = to_string(month) + "//";
+	string appointmentDate = to_string(month) + "/";
 	int dayDigits = to_string(day).length();
 	if(dayDigits== 1){
 		appointmentDate += ("0" + to_string(day));
@@ -98,7 +98,7 @@ void ScheduleManager::cancelAppointment(int day, int month, int year, int appoin
 	else{
 		appointmentDate += to_string(day);
 	}
-	appointmentDate +=  ("//" +  to_string(year));
+	appointmentDate +=  ("/" +  to_string(year));
 	int size = countMatchingAppointments(DBFilePath, appointmentDate, appointmentTime);
 	if(size == 0){
 		cout << "No such appointment found." << endl;
@@ -186,7 +186,7 @@ void ScheduleManager::printWorkerWeekSchedule(int workerID, string DBFilePath){
 
 void ScheduleManager::printWorkerDaySchedule(int workerID, int day, int month, int year, string DBFilePath){
 	Worker* worker = getWorker(DBFilePath, workerID);
-	string appointmentDate = to_string(month) + "//";
+	string appointmentDate = to_string(month) + "/";
 	int dayDigits = to_string(day).length();
 	if(dayDigits == 1){
 		appointmentDate += ("0" + to_string(day));
@@ -194,7 +194,7 @@ void ScheduleManager::printWorkerDaySchedule(int workerID, int day, int month, i
 	else{
 		appointmentDate += to_string(day);
 	}
-	appointmentDate +=  ("//" +  to_string(year));
+	appointmentDate +=  ("/" +  to_string(year));
 	int meetingNumber = countMatchingAppointments(DBFilePath, workerID, appointmentDate);
 	if(meetingNumber == 0){
 		cout << "No appointments on " << appointmentDate << endl;
@@ -336,7 +336,7 @@ void ScheduleManager::printAllWorkerAppointments(int workerID, string DBFilePath
 }
 
 void ScheduleManager::printAppointmentsOnDateAndTime(int day, int month, int year, int appointmentTime, string DBFilePath){
-	string appointmentDate = to_string(month) + "//";
+	string appointmentDate = to_string(month) + "/";
 	int dayDigits = to_string(day).length();
 	if(dayDigits== 1){
 		appointmentDate += ("0" + to_string(day));
@@ -344,7 +344,7 @@ void ScheduleManager::printAppointmentsOnDateAndTime(int day, int month, int yea
 	else{
 		appointmentDate += to_string(day);
 	}
-	appointmentDate +=  ("//" +  to_string(year));
+	appointmentDate +=  ("/" +  to_string(year));
 	int count = countMatchingAppointments(DBFilePath, appointmentDate, appointmentTime);
 	if(count == 0){
 		cout << "No appointments found on this date and time." << endl;
