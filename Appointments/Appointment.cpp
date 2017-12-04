@@ -128,7 +128,7 @@ void Appointment::printAppointmentTimeDateAndVisitor(){
 	return;
 }
 
-Appointment::Appointment(bool offDay, int day, int month, int year, int appointmentTime, Worker* worker, string visitorName, int visitorID){
+Appointment::Appointment(bool offDay, int day, int month, int year, int appointmentTime, Worker* worker, string visitorName, int visitorID, int appointmentID){
 	this->offDay = offDay;
 	this->day = day;
 	this->month = month;
