@@ -397,7 +397,8 @@ void removeWorker(std::string DBFilePath){
     removeWorker(DBFilePath,workerID);
 }
 
-void seachForWorker(std::string DBFilePath){
+void seachForWorker(std::string DBFilePath)
+{
     std::string employeeName;
     std::cout << "Please Enter the Name of the Employee: ";
     std::cin >> employeeName;
@@ -413,7 +414,7 @@ void seachForWorker(std::string DBFilePath){
             std::cout << searchResults[i]->getWorkerID() << "\t" << searchResults[i]->getWorkerName() << "\n";
         }
     }
-    
+}
     int displayVisitorManagementMenu()
     {
         std::cout << "Manage Visitor Records \n";
@@ -426,7 +427,8 @@ void seachForWorker(std::string DBFilePath){
         return choice;
     }
     
-    void addNewVisitor(std::string DBFilePath){
+    void displayNewVisitorMenu(std::string DBFilePath)
+    {
         int visitorID;
         std::string visitorName;
         std::cout<<"Enter the ID of the new visitor: ";
@@ -436,15 +438,17 @@ void seachForWorker(std::string DBFilePath){
         addNewVisitor(DBFilePath, visitorID, visitorName);
     }
     
-    void removeVisitor(std::string DBFilePath){
+    void displayRemoveVisitorMenu(std::string DBFilePath)
+    {
         int visitorID;
         std::cout<<"Enter visitor ID to remove: ";
         std::cin>>visitorID;
         removeVisitor(DBFilePath, visitorID);
     }
     
-    void seachForVisitor(std::string DBFilePath){
-        std::string visiorName;
+    void displayVisitorSearchMenu(std::string DBFilePath)
+    {
+        std::string visitorName;
         std::cout << "Please Enter the Name of the visitor: ";
         std::cin >> visitorName;
         int matchCount = countMatchingVisitors(DBFilePath,visitorName);
@@ -459,6 +463,7 @@ void seachForWorker(std::string DBFilePath){
                 std::cout << searchResults[i]->getVisitorID() << "\t" << searchResults[i]->getVisitorName() << "\n";
             }
         }
+    }
 #endif /* UI_UI_H_ */
         
 

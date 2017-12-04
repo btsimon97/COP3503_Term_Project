@@ -76,13 +76,13 @@ int main()
 					switch(displayVisitorManagementMenu())
 					{
 						case 1:
-                            addNewVisitor(DBPath)
+                            displayNewVisitorMenu(DBPath);
 							break;
 						case 2:
-                            removeVisitor(DBPath)
+                            displayRemoveVisitorMenu(DBPath);
 							break;
 						case 3:
-                            seachForVisitor(DBPath)
+                            displayVisitorSearchMenu(DBPath);
 							break;
 					}
 					break;
