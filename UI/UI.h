@@ -143,7 +143,7 @@ void displayNewAppointmentMenu(std::string DBFilePath)
     }
     else
     {
-        std::cout << "No results found for the Employee Specified. Verify the Employee exists and try again.";
+        std::cout << "No results found for the Employee Specified. Verify the Employee exists and try again.\n";
     }
 }
 
@@ -181,7 +181,7 @@ void displayAppointmentCancelationMenu(std::string DBFilePath)
     }
     else
     {
-        std::cout << "No results found for the Employee Specified. Verify the Employee exists and try again.";
+        std::cout << "No results found for the Employee Specified. Verify the Employee exists and try again.\n";
     }
 }
 
@@ -300,7 +300,7 @@ void displayWorkerWeekSearchMenu(std::string DBFilePath)
     }
     else
     {
-        std::cout << "No Matching Employees Were Found. Verify the Employee exists and try again.";
+        std::cout << "No Matching Employees Were Found. Verify the Employee exists and try again.\n";
     }
 }
 
@@ -328,7 +328,7 @@ void displayWorkerAppointmentDumpMenu(std::string DBFilePath)
     }
     else
     {
-        std::cout << "No Matching Employees Were Found. Verify the Employee exists and try again.";
+        std::cout << "No Matching Employees Were Found. Verify the Employee exists and try again.\n";
     }
 }
 
