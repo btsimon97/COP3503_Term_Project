@@ -143,7 +143,7 @@ void ScheduleManager::printWorkerWeekSchedule(int workerID, string DBFilePath){
 	}
 	cout << worker->getWorkerName() << "'s Schedule for the week of " << startMonth<< "/" << startDay << "/" << startYear << ":" << endl;
 	for(int i = 0; i < 7; i++){
-		switch(daysPastSunday){
+		switch(i){
 			case 0:
 			cout << "Sunday Appointments:" << endl;
 			break;
